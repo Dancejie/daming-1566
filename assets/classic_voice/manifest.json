@@ -1,0 +1,65 @@
+{
+  "yanshifan_hurt_head": {
+    "speaker": "严世蕃",
+    "text": "伤你妈的头！",
+    "src": "assets/classic_voice/yanshifan/hurt_head.wav",
+    "source": "“有些人天生就是主角，他一开口，便是名场面”.mp4",
+    "start": "0.000",
+    "end": "4.000",
+    "filter": "highpass=f=70,lowpass=f=8200,loudnorm=I=-16:TP=-2:LRA=10"
+  },
+  "yansong_two_capitals": {
+    "speaker": "严嵩",
+    "text": "大明朝两京一十三省是在我的肩上担着，天下苍生这几个字还轮不到你来说。",
+    "src": "assets/classic_voice/yansong/two_capitals_thirteen_provinces.wav",
+    "source": "“有些人天生就是主角，他一开口，便是名场面”.mp4",
+    "start": "40.000",
+    "end": "50.650",
+    "filter": "highpass=f=70,lowpass=f=8200,loudnorm=I=-16:TP=-2:LRA=10"
+  },
+  "yanshifan_dogpi_two_jinshi": {
+    "speaker": "严世蕃",
+    "text": "什么狗屁两榜进士，一个商人玩剩下的艺妓，你都当个宝贝似的娶到家里，你高家十八代祖宗的脸都让你丢尽了。",
+    "src": "assets/classic_voice/yanshifan/dogpi_two_jinshi.wav",
+    "source": "“有些人天生就是主角，他一开口，便是名场面”.mp4",
+    "start": "90.000",
+    "end": "101.000",
+    "filter": "highpass=f=70,lowpass=f=8200,loudnorm=I=-16:TP=-2:LRA=10"
+  },
+  "yanshifan_touch_your_chest": {
+    "speaker": "严世蕃",
+    "text": "张太岳，你摸着胸口想想，拿人家当枪使，只为了拱倒我们。那些理学心学，你和你的老师，都学到什么地方去了。",
+    "src": "assets/classic_voice/yanshifan/touch_your_chest.wav",
+    "source": "“有些人天生就是主角，他一开口，便是名场面”.mp4",
+    "start": "125.000",
+    "end": "140.000",
+    "filter": "highpass=f=70,lowpass=f=8200,loudnorm=I=-16:TP=-2:LRA=10"
+  },
+  "yanshifan_stir_it_up": {
+    "speaker": "严世蕃",
+    "text": "搅吧搅吧，你们就搅吧！搅得胡宗宪前方打仗没了军需，吃了败仗；搅得东南大乱，把大明朝亡了，老子无非陪着你们一起玩命就是！",
+    "src": "assets/classic_voice/yanshifan/stir_it_up.wav",
+    "source": "“有些人天生就是主角，他一开口，便是名场面”.mp4",
+    "start": "367.000",
+    "end": "386.000",
+    "filter": "highpass=f=70,lowpass=f=8200,loudnorm=I=-16:TP=-2:LRA=10"
+  },
+  "yansong_spear": {
+    "speaker": "严嵩",
+    "text": "拿人家当枪使，只为了拱倒我们。那些理学心学，你和你的老师都学到什么地方去了？",
+    "src": "assets/classic_voice/yansong/use_people_as_spear.wav",
+    "source": "“有些人天生就是主角，他一开口，便是名场面”.mp4"
+  },
+  "yansong_hu_zongxian": {
+    "speaker": "严嵩",
+    "text": "搅得胡宗宪前方打仗没了军需，吃了败仗，搅得东南大乱，把大明朝亡了。",
+    "src": "assets/classic_voice/yansong/hu_zongxian_army.wav",
+    "source": "“有些人天生就是主角，他一开口，便是名场面”.mp4"
+  },
+  "jiajing_old_medicine": {
+    "speaker": "嘉靖",
+    "text": "医不如心，人不如故。可在朕这儿啊，人也是旧的好，医也是旧的好，用久了多少都有些舍不得。",
+    "src": "assets/classic_voice/jiajing/old_people_old_medicine.wav",
+    "source": "嘉靖混剪素材"
+  }
+}

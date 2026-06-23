@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>大明名场面互动 Demo</title>
+    <link rel="stylesheet" href="./style.css?v=20260616-splash-bgm2">
+  </head>
+  <body>
+    <section class="splash-screen is-visible" id="splashScreen" aria-label="启动海报"></section>
+
+    <section class="title-screen" id="titleScreen" aria-label="名场面目录封面">
+      <div class="title-screen__shade"></div>
+      <div class="title-screen__content">
+        <p class="title-kicker">大明王朝 1566 · 名场面对线试玩</p>
+        <h1>明场面</h1>
+        <p class="title-copy">在朝堂、严府与西苑夹道之间，扮演剧中人接住名台词前的那一刀。</p>
+        <div class="title-actions">
+          <button class="title-primary" id="startGameBtn" type="button">进入明场面</button>
+          <button class="title-secondary" id="resumeGameBtn" type="button">继续当前</button>
+          <button class="title-secondary" id="titleBgmToggle" type="button">BGM 开</button>
+        </div>
+        <div class="scene-directory" aria-label="名场面目录">
+          <div class="scene-directory__head">
+            <span>目录跳转</span>
+            <small>任选一幕入局</small>
+          </div>
+          <div class="scene-directory__grid" id="titleSceneList"></div>
+        </div>
+        <p class="title-audio-note" id="titleAudioNote">点击封面空白处播放封面音乐</p>
+      </div>
+      <audio id="titleBgm" src="./assets/title_bgm_5s_2m.m4a" preload="auto" loop></audio>
+    </section>
+
+    <main class="app-shell">
+      <section class="stage" aria-label="丹房试心互动场景">
+        <div class="scene-backdrop" aria-hidden="true"></div>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="sceneCode">S000 · 嘉靖四十五年 · 大明风暴前夜</p>
+            <h1 id="sceneTitle">风暴初夜</h1>
+            <p class="scene-prompt" id="scenePrompt">先了解这场权谋风暴的时代背景。</p>
+          </div>
+          <div class="top-actions">
+            <button class="catalog-button" id="bgmToggleBtn" type="button">BGM 开</button>
+            <button class="catalog-button" id="catalogBtn" type="button">目录</button>
+            <div class="turn-indicator">
+              <span>朝局回合</span>
+              <strong id="turnCount">一</strong>
+              <em id="modelBadge">DeepSeek 检查中</em>
+            </div>
+          </div>
+        </header>
+
+        <div class="stage-floor" id="stageFloor"></div>
+
+        <aside class="thought-rail" id="thoughtRail" aria-live="polite">
+          <div class="thought-head">
+            <span id="thoughtMode">DeepSeek Agent 推演中</span>
+            <strong id="thoughtFocus">等待玩家进言</strong>
+          </div>
+          <div class="thought-list" id="thoughtList"></div>
+        </aside>
+
+        <section class="dialogue-panel" aria-label="对话面板">
+          <div class="speaker-row">
+            <div>
+              <span class="speaker-role" id="speakerRole">嘉靖</span>
+              <span class="speaker-mood" id="speakerMood">观心 · 试探</span>
+            </div>
+            <div class="dialogue-actions">
+              <span class="voice-status" id="voiceStatus">语音待机</span>
+              <button class="icon-button voice-toggle is-on" id="voiceToggle" type="button" title="角色语音开关" aria-label="角色语音开关">声</button>
+              <button class="icon-button" id="resetBtn" type="button" title="重开这一幕" aria-label="重开这一幕">↺</button>
+            </div>
+          </div>
+          <button class="vn-line" id="continueBtn" type="button" aria-live="polite">
+            <span id="dialogueText">点击继续</span>
+            <small id="continueHint">继续</small>
+          </button>
+          <details class="history-panel">
+            <summary>对话记录</summary>
+            <div class="chat-log" id="chatLog"></div>
+          </details>
+          <div class="choice-grid" id="choiceGrid" aria-label="默认交互选项"></div>
+          <form class="custom-input" id="customForm">
+            <input id="customText" type="text" maxlength="500" placeholder="自定义回答：比如“银子要查，但不能让前线先断粮”" autocomplete="off">
+            <button type="submit">进言</button>
+          </form>
+        </section>
+      </section>
+
+      <aside class="side-panel" aria-label="Agent 状态与模型插件">
+        <details class="debug-drawer">
+          <summary>调试 / Agent 状态</summary>
+        <section class="poster-card">
+          <div class="poster-crop" role="img" aria-label="项目视觉海报"></div>
+          <div class="poster-copy">
+            <strong>名场面互动剧场</strong>
+            <span>每一幕让玩家扮演剧中人物复现对线，先出招，再由对手用原声名台词压住局势。</span>
+          </div>
+        </section>
+
+        <section class="status-card">
+          <div class="section-title">
+            <h2>世界状态</h2>
+            <span id="worldBadge">试心局</span>
+          </div>
+          <div class="meter-list" id="worldMeters"></div>
+        </section>
+
+        <section class="status-card">
+          <div class="section-title">
+            <h2>Agent 记忆</h2>
+            <span>实时变化</span>
+          </div>
+          <div class="agent-tabs" id="agentTabs"></div>
+          <div class="agent-detail" id="agentDetail"></div>
+        </section>
+
+        <section class="model-card">
+          <div class="section-title">
+            <h2>模型插件</h2>
+            <span id="modelState">DeepSeek 待连接</span>
+          </div>
+          <label>
+            <span>Provider</span>
+            <select id="providerSelect">
+              <option value="mock">Demo Rule Agent</option>
+              <option value="deepseek" selected>DeepSeek Local Proxy</option>
+              <option value="deepseek-direct">DeepSeek Direct API</option>
+              <option value="openai">OpenAI Compatible</option>
+            </select>
+          </label>
+          <label>
+            <span>Endpoint</span>
+            <input id="endpointInput" type="text" placeholder="/api/deepseek">
+          </label>
+          <label>
+            <span>API Key</span>
+            <input id="apiKeyInput" type="password" placeholder="直连模式填写 API Key">
+          </label>
+          <label>
+            <span>Voice Provider</span>
+            <select id="voiceProviderSelect">
+              <option value="proxy" selected>Voice Local Proxy</option>
+              <option value="gpt-sovits">GPT-SoVITS Direct API</option>
+            </select>
+          </label>
+          <label>
+            <span>Voice Endpoint</span>
+            <input id="voiceEndpointInput" type="text" placeholder="/api/tts">
+          </label>
+          <p class="model-note">DeepSeek 和语音都支持本地代理或浏览器直连。直连 DeepSeek 会在浏览器本地保存 API Key，只适合个人演示；公开部署请继续走后端代理隐藏密钥。</p>
+        </section>
+        </details>
+      </aside>
+    </main>
+
+    <script src="./app.js?v=20260616-splash-bgm2"></script>
+  </body>
+</html>
