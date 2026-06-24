@@ -16,7 +16,7 @@ GSV_DIR = WORKSPACE / "vendor" / "GPT-SoVITS"
 PY311_VENV = WORKSPACE / ".venv-gpt-sovits-py311"
 TTS_API = os.environ.get("GPT_SOVITS_API", "http://127.0.0.1:9880")
 MODEL = "deepseek-v4-pro"
-DEEPSEEK_API_KEY_FALLBACK = "sk-fdf3983bcb634f518bdc3aa1e211665f"
+DEEPSEEK_API_KEY_FALLBACK = os.environ.get("DEEPSEEK_API_KEY", "")
 TTS_PROCESS = None
 CURRENT_TTS_SPEAKER = None
 
