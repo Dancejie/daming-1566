@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .env
 assets/generated_voice/
+film/private/
+film/qa/*.png
+film/qa/*.json
+.work-*/

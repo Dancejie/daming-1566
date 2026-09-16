@@ -1,0 +1,1217 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.0",
+  "contentVersion": "1.1.0",
+  "id": "ming-storm-cinema",
+  "title": "大明由你改写",
+  "subtitle": "风暴初夜 · 互动影视版",
+  "description": "半本旧账，三百袋粮，六位各有所守的人。你说的话会被记住，签下的名字要承担后果。",
+  "adaptationNotice": "沿用既有《大明由你改写》人物与账册主线，为戏剧化架空改编。具体对白、数额、人物会面与程序安排服务游戏，不作史实复原。",
+  "player": {
+    "id": "player",
+    "name": "你",
+    "role": "卷入浙江旧账案的局外人",
+    "portrait": "/assets/characters/player/player_base.png"
+  },
+  "statDefinitions": [
+    {
+      "id": "evidence",
+      "label": "账册证据",
+      "min": 0,
+      "max": 100,
+      "description": "原件、旁证与经手记录的可核验程度"
+    },
+    {
+      "id": "relief",
+      "label": "赈粮进度",
+      "min": 0,
+      "max": 100,
+      "description": "本案救急物资的落实程度"
+    },
+    {
+      "id": "security",
+      "label": "海防供给",
+      "min": 0,
+      "max": 100,
+      "description": "本案相关军需的供给稳定程度"
+    },
+    {
+      "id": "authority",
+      "label": "皇权稳定",
+      "min": 0,
+      "max": 100,
+      "description": "御前对本案查账、救急与各方争执的控制程度；不等同于嘉靖对玩家的个人信任"
+    },
+    {
+      "id": "reform",
+      "label": "新政准备",
+      "min": 0,
+      "max": 100,
+      "description": "分账核验方案的准备程度"
+    }
+  ],
+  "statRule": "0-100为本局抽象指数，不代表百分比、银两或历史统计。三百袋粮与三日军需在正文另行记账。",
+  "initialState": {
+    "stats": {
+      "evidence": 46,
+      "relief": 42,
+      "security": 56,
+      "authority": 68,
+      "reform": 18
+    },
+    "relationships": {
+      "jiajing": 30,
+      "hairui": 62,
+      "yansong": 34,
+      "xujie": 46,
+      "zhangjuzheng": 42,
+      "huzongxian": 40
+    },
+    "flags": {},
+    "memories": {}
+  },
+  "statePolicy": {
+    "owner": "deterministic-engine",
+    "bounds": [
+      0,
+      100
+    ],
+    "effectCommit": "once-per-beat-after-confirmation",
+    "freeInput": "preview-classification-then-explicit-confirmation",
+    "deniedInput": "no-state-commit",
+    "memorySubstitution": "{input} is replaced by confirmed original player input; render as text only",
+    "endingOrder": "first-all-requires-match; final empty requires is fallback",
+    "keywordResolution": "Engine scores total matched keyword lengths, chooses highest eligible score; zero matches use fallback. Deny must be rejected without a proposal commit.",
+    "ledgerCustodyScope": "ledgerCustody records the custody plan chosen on the Zhejiang night, not the ledger's current physical location. Before return, Hai Rui checks and seals the original against the signed records; the player escorts it to Beijing. Existing copies and statements remain with their custodians."
+  },
+  "scenes": [
+    {
+      "id": "S000",
+      "title": "票拟风波",
+      "location": "京城 · 御前问账",
+      "shotId": "M01",
+      "beats": [
+        {
+          "id": "S000.01",
+          "type": "narration",
+          "text": "你把半本账放到御案。今晚要救的人，都系在这几页纸上。",
+          "shotId": "M01"
+        },
+        {
+          "id": "S000.02",
+          "type": "narration",
+          "text": "御案上，一册浙江旧账，一张相府粮条。同一个转运票号，既列在军需借支下，又旁注待抵赈银。户部不肯签认。账末的经手名姓，却恰好缺了半页。"
+        },
+        {
+          "id": "S000.03",
+          "type": "dialogue",
+          "text": "嘉靖没有翻页，手指停在断口上。\n“户部不肯认的账，送到朕这里，就有人肯认了？”",
+          "speaker": "jiajing",
+          "emotion": "base"
+        },
+        {
+          "id": "S000.04",
+          "type": "choice",
+          "text": "先让嘉靖知道：你来这一趟，最先要保住什么。",
+          "options": [
+            {
+              "id": "promise.people",
+              "label": "先保今夜的赈粮",
+              "playerText": "粮条先办。旧账容后再查，不能叫领粮的人先挨饿。",
+              "responseSpeaker": "jiajing",
+              "responseText": "嘉靖抬眼看你，又看了一眼严嵩。\n“粮是谁的粮？发出去，底下人知道该记谁的恩么？”",
+              "consequence": "赈粮进度 +4；海瑞信任 +3。御前记住你先提救人。",
+              "effects": {
+                "stats": {
+                  "relief": 4
+                },
+                "relationships": {
+                  "hairui": 3
+                },
+                "memory": {
+                  "key": "firstPromise",
+                  "text": "粮条先办。旧账容后再查，不能叫领粮的人先挨饿。"
+                }
+              },
+              "requires": []
+            },
+            {
+              "id": "promise.evidence",
+              "label": "先保能追查的原账",
+              "playerText": "先把这半页的经手查出来。原账一失，往后的粮也未必能到该去的地方。",
+              "responseSpeaker": "jiajing",
+              "responseText": "“原账。”嘉靖重说了一遍，手仍压着那道断口。\n“送账的人呢？纸不会改口，人会。”",
+              "consequence": "账册证据 +4；徐阶信任 +3。御前记住你先提留证。",
+              "effects": {
+                "stats": {
+                  "evidence": 4
+                },
+                "relationships": {
+                  "xujie": 3
+                },
+                "memory": {
+                  "key": "firstPromise",
+                  "text": "先把这半页的经手查出来。原账一失，往后的粮也未必能到该去的地方。"
+                }
+              },
+              "requires": []
+            },
+            {
+              "id": "promise.system",
+              "label": "先把粮与亏空分账",
+              "playerText": "急用的粮与旧日的亏空，分开开列。该发的先发，缺项不能就此销了。",
+              "responseSpeaker": "jiajing",
+              "responseText": "嘉靖把粮条移到另一边，隔了片刻才道：\n“一张纸分成两张，事情就办得了了？你往下说。”",
+              "consequence": "新政准备 +6；张居正信任 +3。御前记住你提出分账。",
+              "effects": {
+                "stats": {
+                  "reform": 6
+                },
+                "relationships": {
+                  "zhangjuzheng": 3
+                },
+                "memory": {
+                  "key": "firstPromise",
+                  "text": "急用的粮与旧日的亏空，分开开列。该发的先发，缺项不能就此销了。"
+                }
+              },
+              "requires": []
+            }
+          ]
+        },
+        {
+          "id": "S000.05",
+          "type": "dialogue",
+          "text": "严嵩朝徐阶那边欠了欠身，语气仍是商量。\n“既要清查，早先拟票的人也该到场。不能前面的人把银支了，到了收尾，只问最后经手的。”",
+          "speaker": "yansong",
+          "emotion": "base"
+        },
+        {
+          "id": "S000.06",
+          "type": "narration",
+          "text": "谁也没有接话。炉火轻轻一响，你盯着那道断口——月前在浙江，送账的小吏把湿袖捂在这里，直到海瑞叫他松手。"
+        }
+      ]
+    },
+    {
+      "id": "S001",
+      "title": "雨夜半本账",
+      "location": "月前 · 浙江县衙",
+      "shotId": "M02",
+      "beats": [
+        {
+          "id": "S001.01",
+          "type": "narration",
+          "text": "雨水逼近残页。海瑞要证人上堂，徐阶却要你先留副本。",
+          "shotId": "M02"
+        },
+        {
+          "id": "S001.02",
+          "type": "narration",
+          "text": "两个相同的票号还辨得出来，银到底有没有支过两次，却不能凭这半本定论。送账的小吏缩在门边，一只手按住门闩。堂外有人咳嗽，他的手便紧一下。"
+        },
+        {
+          "id": "S001.03",
+          "type": "dialogue",
+          "text": "海瑞没有叫他跪，只把凳子挪到灯下。\n“坐。先说这两笔是谁叫你记的，再说这半页是谁撕的。眼见的说眼见，听来的说听来，不许混在一处。”",
+          "speaker": "hairui",
+          "emotion": "base"
+        },
+        {
+          "id": "S001.04",
+          "type": "dialogue",
+          "text": "你展开放在衣襟里的书札。赴浙前，徐阶只在末尾添了几行：\n“原本不要轻离人手。若须传递，另留誊本；抄在何日、经过谁手，都记明白。至于何时呈出，回来再议。”",
+          "speaker": "xujie",
+          "emotion": "base",
+          "delivery": "letter"
+        },
+        {
+          "id": "S001.05",
+          "type": "choice",
+          "text": "原账今晚放在哪里？",
+          "options": [
+            {
+              "id": "ledger.public",
+              "label": "交海瑞，留下你的证词",
+              "playerText": "原账先请海大人收着。我跟小吏一同具结，亲见哪一笔，便认哪一笔。",
+              "responseSpeaker": "hairui",
+              "responseText": "海瑞把一张空白供纸摊到你面前。\n“你的话另写一份，不许照着他的抄。两个人各说各的，对得上，才是旁证。”",
+              "consequence": "账册证据 +12；赈粮进度 −4；海瑞信任 +10。你成为署名证人。",
+              "effects": {
+                "stats": {
+                  "evidence": 12,
+                  "relief": -4
+                },
+                "relationships": {
+                  "hairui": 10,
+                  "xujie": -2
+                },
+                "flags": {
+                  "ledgerCustody": "hairui",
+                  "witnessSigned": true
+                },
+                "memory": {
+                  "key": "ledgerDecision",
+                  "text": "把原账交给海瑞，并愿为亲见之事署名作证。"
+                }
+              },
+              "requires": []
+            },
+            {
+              "id": "ledger.copy",
+              "label": "交徐阶藏副本，原账另封",
+              "playerText": "依徐阁老的札子另抄一份，日子、经手都写上。原本验毕另封，誊本托可靠的人送去。",
+              "responseSpeaker": "xujie",
+              "responseText": "你照札尾的嘱咐，把“新誊”二字标在封面。那封信没有许你平安，只把递送与留存的次序分得清楚。",
+              "consequence": "账册证据 +16；皇权稳定 +2；徐阶信任 +10。副本留有经手记录。",
+              "effects": {
+                "stats": {
+                  "evidence": 16,
+                  "authority": 2
+                },
+                "relationships": {
+                  "xujie": 10,
+                  "hairui": -3
+                },
+                "flags": {
+                  "ledgerCustody": "copy",
+                  "hasCopy": true
+                },
+                "memory": {
+                  "key": "ledgerDecision",
+                  "text": "留一份注明经手与日期的誊本，另封原账。"
+                }
+              },
+              "requires": []
+            },
+            {
+              "id": "ledger.keep",
+              "label": "自己封存，先查三路银流",
+              "playerText": "原账暂由我封着。先将织造、赈银、军需三处经手逐一核对，不拿猜测填这半页。",
+              "responseSpeaker": "hairui",
+              "responseText": "海瑞看了一眼你按着账的手。\n“账可以由你保。送账的人，不能也归你一句话安置。叫他留下口供，往后谁来问，都照这一份答。”",
+              "consequence": "账册证据 +10；新政准备 +10；张居正信任 +6。你承担保管原件的风险。",
+              "effects": {
+                "stats": {
+                  "evidence": 10,
+                  "reform": 10
+                },
+                "relationships": {
+                  "zhangjuzheng": 6,
+                  "hairui": -2
+                },
+                "flags": {
+                  "ledgerCustody": "player"
+                },
+                "memory": {
+                  "key": "ledgerDecision",
+                  "text": "自己封存原账，分别追查三路银流。"
+                }
+              },
+              "requires": []
+            }
+          ]
+        },
+        {
+          "id": "S001.06",
+          "type": "qte",
+          "text": "保管人已议定，账还摊着，等最后核验装匣。门闩忽然被风撞开，雨斜扫进来——按住残页，别让墨迹散了。",
+          "durationMs": 6000,
+          "actionLabel": "按住账页",
+          "autoAction": "success",
+          "success": {
+            "text": "你用干袖压住残页。灯下，两行票号还认得清。海瑞把页数重新点了一遍，才让人取封纸。",
+            "effects": {
+              "stats": {
+                "evidence": 8
+              },
+              "flags": {
+                "ledgerProtected": true
+              },
+              "memory": {
+                "key": "rainDecision",
+                "text": "雨夜及时压住账页，保住了关键数目。"
+              }
+            }
+          },
+          "failure": {
+            "text": "你慢了一瞬，雨水拖开两行墨。海瑞没有让人描补，只在旁纸上记下受潮的位置：这两处，往后要找旁证。",
+            "effects": {
+              "stats": {
+                "evidence": -8
+              },
+              "flags": {
+                "ledgerProtected": false
+              },
+              "memory": {
+                "key": "rainDecision",
+                "text": "雨夜两行墨迹洇开，日后要补经手旁证。"
+              }
+            }
+          }
+        },
+        {
+          "id": "S001.07",
+          "type": "narration",
+          "text": "天亮前，相府在浙江的经手人递来口信：回京不妨先到严府。返京前，海瑞照具结点验原账，封好后交你押送；先前议定该留下的材料，仍各自留存。"
+        }
+      ]
+    },
+    {
+      "id": "S002",
+      "title": "相府送粮",
+      "location": "返京后 · 严府偏厅",
+      "shotId": "M03",
+      "beats": [
+        {
+          "id": "S002.01",
+          "type": "narration",
+          "text": "三百袋赈粮停在门外。严嵩等你签字，也等你把账交出来。",
+          "shotId": "M03"
+        },
+        {
+          "id": "S002.02",
+          "type": "dialogue",
+          "text": "返京已有数日。京郊赈棚缺粮，相府门外的三百袋，却得等这张收条。\n严嵩听管事回完话，才转向你：“车已经套好了。你从浙江回来，总该知道，等粮的人不问银从哪一路来的。”",
+          "speaker": "yansong",
+          "emotion": "base"
+        },
+        {
+          "id": "S002.03",
+          "type": "dialogue",
+          "text": "你想起海瑞在浙江合上供纸时的一句话：\n“粮是粮，供是供。有人肯拿粮救急，你替他记这一笔。要你把另一笔改了，先问他凭什么。”",
+          "speaker": "hairui",
+          "emotion": "base",
+          "delivery": "memory"
+        },
+        {
+          "id": "S002.04",
+          "type": "choice",
+          "text": "三百袋粮的收条就在你面前。",
+          "options": [
+            {
+              "id": "grain.debt",
+              "label": "收粮，以暂缓公开换开仓",
+              "playerText": "请阁老先发粮。那几页账我暂不张扬；上头已经写着的，我不能替人抹去。",
+              "responseSpeaker": "yansong",
+              "responseText": "严嵩点头，让管事取笔，自己没有碰那张条子。\n“先把今日的事办了。往后的话，往后再说。你也请写个名字，仓里才好交代。”",
+              "consequence": "赈粮进度 +26；账册证据 −6；严嵩信任 +8。留下暂缓公开的债。",
+              "effects": {
+                "stats": {
+                  "relief": 26,
+                  "evidence": -6,
+                  "authority": 2
+                },
+                "relationships": {
+                  "yansong": 8,
+                  "hairui": -8
+                },
+                "flags": {
+                  "grainRoute": "debt",
+                  "dirtyGrain": true,
+                  "grainBags": 300
+                },
+                "memory": {
+                  "key": "grainDecision",
+                  "text": "收下三百袋粮，并许诺暂缓公开账页。"
+                }
+              },
+              "requires": []
+            },
+            {
+              "id": "grain.audit",
+              "label": "收粮，逐袋记数并另立收据",
+              "playerText": "粮我替赈棚收。三百袋从哪处出、送哪处去，请各写一张凭据。旧账仍照旧账核，不在粮条上抵销。",
+              "responseSpeaker": "yansong",
+              "responseText": "严嵩端起茶，许久没有喝。\n“还没出这个门，便替老夫把账分好了。也罢。两张都要名字，你的，别漏了。”",
+              "consequence": "赈粮进度 +18；账册证据 +6；新政准备 +12。你署名核收三百袋粮。",
+              "effects": {
+                "stats": {
+                  "relief": 18,
+                  "evidence": 6,
+                  "reform": 12
+                },
+                "relationships": {
+                  "yansong": -3,
+                  "hairui": 5,
+                  "zhangjuzheng": 6
+                },
+                "flags": {
+                  "grainRoute": "audited",
+                  "grainBags": 300,
+                  "receiptSigned": true
+                },
+                "memory": {
+                  "key": "grainDecision",
+                  "text": "核收三百袋赈粮，单立收据，粮与旧账分别记清。"
+                }
+              },
+              "requires": []
+            },
+            {
+              "id": "grain.refuse",
+              "label": "拒签交易，另找官仓",
+              "playerText": "若一定要拿不查旧账换这三百袋，收条我不敢签。我另具呈请官仓核放，今日误了多少，也一并写上。",
+              "responseSpeaker": "yansong",
+              "responseText": "严嵩把笔收回笔架，声音低了些。\n“官仓自然可以请。哪一天有回文，就哪一天开仓。门外这些车，老夫先叫他们卸了。”",
+              "consequence": "赈粮进度 −12；账册证据 +6；海瑞信任 +6。相府粮未发，官仓申请仍待核。",
+              "effects": {
+                "stats": {
+                  "relief": -12,
+                  "evidence": 6
+                },
+                "relationships": {
+                  "hairui": 6,
+                  "yansong": -8
+                },
+                "flags": {
+                  "grainRoute": "official-pending",
+                  "grainBags": 0
+                },
+                "memory": {
+                  "key": "grainDecision",
+                  "text": "拒绝以沉默换粮，转请官仓核放；今夜的延误由自己承担。"
+                }
+              },
+              "requires": []
+            }
+          ]
+        },
+        {
+          "id": "S002.05",
+          "type": "dialogue",
+          "text": "迈过门槛时，你又想起赴严府前，徐阶将名帖翻到背面说的那句：\n“有人肯让你带走粮，也会留下你来过的凭据。收与不收，都不要以为只有自己心里有数。”",
+          "speaker": "xujie",
+          "emotion": "base",
+          "delivery": "memory"
+        },
+        {
+          "id": "S002.06",
+          "type": "narration",
+          "text": "当晚，粮条连同处置意见被送进西苑。你也被召来。月前的雨水已干，账上的断口却还在——如今，嘉靖的手就压在这里。"
+        }
+      ]
+    },
+    {
+      "id": "S003",
+      "title": "丹房试心",
+      "location": "回到御前 · 西苑丹房",
+      "shotId": "M04",
+      "beats": [
+        {
+          "id": "S003.01",
+          "type": "narration",
+          "text": "丹房只剩炉火。嘉靖不问谁忠谁奸，先问这笔银从哪里来。",
+          "shotId": "M04"
+        },
+        {
+          "id": "S003.02",
+          "type": "dialogue",
+          "text": "嘉靖的手从断口上移开，却没有翻到下一页。\n“方才进门，你不是这样说的么？”",
+          "speaker": "jiajing",
+          "emotion": "base",
+          "memoryCallback": {
+            "key": "firstPromise",
+            "prefix": "嘉靖的手从断口上移开。\n“你方才说：",
+            "suffix": "”\n他没有看严嵩。“如今两张纸都在这里。你先动哪一张？”",
+            "fallback": "嘉靖的手仍压在断口上。\n“粮条和旧账，先动哪一张？”"
+          }
+        },
+        {
+          "id": "S003.03",
+          "type": "free_input",
+          "text": "嘉靖不再问第二遍。你须把先办哪一笔、凭什么办、由谁具名，说到明处。",
+          "speaker": "jiajing",
+          "emotion": "base",
+          "placeholder": "例如：先核这张粮条的经手。旧账另封，原供不改，我愿具名。",
+          "maxLength": 120,
+          "denyKeywords": [
+            "伪造圣旨",
+            "假造批红",
+            "陛下已经批准",
+            "凭空变出粮",
+            "全部无罪",
+            "立刻登基"
+          ],
+          "denialText": "你可以呈请、核验、担责，不能把尚未发生的批红、粮食或无罪结论说成已有。请换成一件现在能办的事。",
+          "fallbackRuleId": "reply.clarify",
+          "rules": [
+            {
+              "id": "reply.records",
+              "label": "留证核账",
+              "keywords": [
+                "原账",
+                "副本",
+                "核验",
+                "经手",
+                "收据",
+                "封存",
+                "分账",
+                "核放",
+                "证据"
+              ],
+              "responseSpeaker": "jiajing",
+              "responseText": "嘉靖把账推回半寸。\n“经手的人还没有开口，你先替他们想好了退路？照原样记。朕要听的，是他们怎么说。”",
+              "consequence": "账册证据 +6；皇权稳定 +6。御前要求依原记录问经手，未替任何人脱罪。",
+              "effects": {
+                "stats": {
+                  "evidence": 6,
+                  "authority": 6
+                },
+                "relationships": {
+                  "jiajing": 6
+                },
+                "memory": {
+                  "key": "courtReply",
+                  "text": "{input}"
+                }
+              }
+            },
+            {
+              "id": "reply.relief",
+              "label": "请粮救急",
+              "keywords": [
+                "救人",
+                "灾民",
+                "赈粮",
+                "开仓",
+                "饿",
+                "粮",
+                "百姓",
+                "人命"
+              ],
+              "responseSpeaker": "jiajing",
+              "responseText": "嘉靖望向严嵩，片刻后又收回目光。\n“粮从谁家仓里出，恩记在谁的名下？把粮条留下。哪一笔急用，哪一笔旧欠，不许混着报。”",
+              "consequence": "赈粮进度 +6；皇权稳定 +4。救急列为单项呈请，旧欠仍须另报。",
+              "effects": {
+                "stats": {
+                  "relief": 6,
+                  "authority": 4
+                },
+                "relationships": {
+                  "jiajing": 4,
+                  "hairui": 3
+                },
+                "memory": {
+                  "key": "courtReply",
+                  "text": "{input}"
+                }
+              }
+            },
+            {
+              "id": "reply.responsibility",
+              "label": "署名担责",
+              "keywords": [
+                "我担",
+                "署名",
+                "负责",
+                "承担",
+                "签字",
+                "我来",
+                "密查",
+                "留中"
+              ],
+              "responseSpeaker": "jiajing",
+              "responseText": "“都由你担？”嘉靖忽然笑了。\n“那几个经手的，明日倒能睡个安稳觉了。你的名字列在后头，先让他们来。”",
+              "consequence": "皇权稳定 +8；徐阶信任 +3。记下你的担责原话，原经手仍不能脱身。",
+              "effects": {
+                "stats": {
+                  "authority": 8
+                },
+                "relationships": {
+                  "jiajing": 5,
+                  "xujie": 3
+                },
+                "memory": {
+                  "key": "courtReply",
+                  "text": "{input}"
+                }
+              }
+            },
+            {
+              "id": "reply.clarify",
+              "label": "收束为具体请示",
+              "keywords": [],
+              "responseSpeaker": "jiajing",
+              "responseText": "嘉靖没有接话。炉中的火响了两声。\n“这话先放着。手里的两张纸还没对上，别替朕再添一张没有的。”",
+              "consequence": "御前留下你的原话；账、粮与现有许可保持原状。",
+              "effects": {
+                "memory": {
+                  "key": "courtReply",
+                  "text": "{input}"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "S003.04",
+          "type": "dialogue",
+          "text": "徐阶接过粮条，并不替你分辩。\n“既奉问账，便请原经手各说各的。能具结的先具结。旁人的一番议论，臣不敢替他列作供词。”",
+          "speaker": "xujie",
+          "emotion": "base"
+        },
+        {
+          "id": "S003.05",
+          "type": "dialogue",
+          "text": "严嵩欠身听完，仍慢慢地说：\n“胡宗宪军前也用着这一路银。查自然要查，只是停支的关文一发，替补的粮也该有着落。皇上还要用兵。”",
+          "speaker": "yansong",
+          "emotion": "base"
+        },
+        {
+          "id": "S003.06",
+          "type": "narration",
+          "text": "翌日，转运吏送来胡宗宪早先发出的军函与附单。你到京城军务行馆找张居正核议。浙江的营盘不在眼前，哪日开船、哪仓接济，却一项项列在信里。"
+        }
+      ]
+    },
+    {
+      "id": "S004",
+      "title": "东南军账",
+      "location": "京城 · 军务行馆",
+      "shotId": "M05",
+      "beats": [
+        {
+          "id": "S004.01",
+          "type": "narration",
+          "text": "军需单压在原账上。胡宗宪要三日粮，张居正要一条新银路。",
+          "shotId": "M05"
+        },
+        {
+          "id": "S004.02",
+          "type": "dialogue",
+          "text": "（胡宗宪军函）\n“军前存粮，须按日算。若停这一项借支，哪一仓替它？哪一船先走？关文上总要有名字，不能到了营门，只拿一句正在查账交代。”",
+          "speaker": "huzongxian",
+          "emotion": "base",
+          "delivery": "letter"
+        },
+        {
+          "id": "S004.03",
+          "type": "dialogue",
+          "text": "张居正看完军函，又去看那两个票号。\n“总督催的是军粮，户部不认的是旧账。混在一处，谁都能推。先把各项拆开。再有人拿前线挡问，便请他指明挡的是哪一笔。”",
+          "speaker": "zhangjuzheng",
+          "emotion": "base"
+        },
+        {
+          "id": "S004.04",
+          "type": "dialogue",
+          "text": "张居正将相府粮条推到军需单旁。\n“这里面的做法，你已经用过一次。”",
+          "speaker": "zhangjuzheng",
+          "emotion": "base",
+          "memoryCallback": {
+            "key": "grainDecision",
+            "prefix": "张居正将相府粮条推到军需单旁。你在那里留下的处置是：\n",
+            "suffix": "\n“军需换了个名目，经手的人却未必换过。还照旧办么？”",
+            "fallback": "张居正将相府粮条推到军需单旁。\n“换了个名目，经手的人却未必换过。两处一起看。”"
+          }
+        },
+        {
+          "id": "S004.05",
+          "type": "choice",
+          "text": "军需不能等，但旧账也不能消失。",
+          "options": [
+            {
+              "id": "army.bridge",
+              "label": "保三日军需，旧账封存待核",
+              "playerText": "照总督函中所列，先保三日军需。旧账封存，原经手不得擅离，转运回文到了再核。",
+              "responseSpeaker": "huzongxian",
+              "responseText": "你在附单的三日期限旁具名。胡宗宪预列的这一条下面，还有一行重墨：\n“借支不作销账。哪一船领了，哪一日到的，都须回文。少一笔，也不替人遮。”",
+              "consequence": "海防供给 +18；赈粮进度 +6；账册证据 −3；新政准备 +6。三日后核账，你要追到底。",
+              "effects": {
+                "stats": {
+                  "security": 18,
+                  "relief": 6,
+                  "evidence": -3,
+                  "reform": 6
+                },
+                "relationships": {
+                  "huzongxian": 12,
+                  "hairui": -4
+                },
+                "flags": {
+                  "protectCoast": true,
+                  "armyRoute": "bridge"
+                },
+                "memory": {
+                  "key": "armyDecision",
+                  "text": "先保三日军需，封存旧账，约定三日后凭收条核验。"
+                }
+              },
+              "requires": []
+            },
+            {
+              "id": "army.separate",
+              "label": "分账调粮，逐笔列出欠项",
+              "playerText": "可核实的军粮另册开列，旧欠与经手归在原册。不足多少照实写，请按单调拨，不许以军需抵销旧欠。",
+              "responseSpeaker": "zhangjuzheng",
+              "responseText": "张居正另取一页纸，写到具名处便停了。\n“调粮这一册，你先签。旧欠这一册，我带去再议。要办这件事，不能只让海瑞一个人在前面说话。”",
+              "consequence": "海防供给 +8；账册证据 +8；新政准备 +16。形成分账方案，可在终局呈为制度案。",
+              "effects": {
+                "stats": {
+                  "security": 8,
+                  "evidence": 8,
+                  "reform": 16
+                },
+                "relationships": {
+                  "zhangjuzheng": 12,
+                  "huzongxian": 5
+                },
+                "flags": {
+                  "protectCoast": false,
+                  "armyRoute": "separate",
+                  "dividedAccounts": true
+                },
+                "memory": {
+                  "key": "armyDecision",
+                  "text": "把可核实军粮与旧欠分册，逐笔记下欠项和经手。"
+                }
+              },
+              "requires": []
+            },
+            {
+              "id": "army.freeze",
+              "label": "停可疑银路，先查经手",
+              "playerText": "可疑的借支先停。缺口另具呈请拨补，原经手先行核问；公开与否，还须把现有凭据一并呈上。",
+              "responseSpeaker": "zhangjuzheng",
+              "responseText": "张居正按住笔。\n“你停得住这项借支，停不住各营每日用粮。请拨补的呈文，你具名。查账的事我另呈，空出来的日子，也一并记上。”",
+              "consequence": "账册证据 +16；新政准备 +4；海防供给 −16；赈粮进度 −6。先查经手，补拨未到；原账尚未公开。",
+              "effects": {
+                "stats": {
+                  "evidence": 16,
+                  "reform": 4,
+                  "security": -16,
+                  "relief": -6
+                },
+                "relationships": {
+                  "hairui": 10,
+                  "huzongxian": -12
+                },
+                "flags": {
+                  "protectCoast": false,
+                  "armyRoute": "frozen",
+                  "requestedPublicAudit": true
+                },
+                "memory": {
+                  "key": "armyDecision",
+                  "text": "停下可疑银路，先查经手；申请拨补，并承认军需缺口仍在。"
+                }
+              },
+              "requires": []
+            }
+          ]
+        },
+        {
+          "id": "S004.06",
+          "type": "dialogue",
+          "text": "（胡宗宪军函末页）\n“旧欠若有我经手，也照数问我。只是该从哪仓发出的粮，不能因我的名字也在账上，便叫军士一起等罪。”",
+          "speaker": "huzongxian",
+          "emotion": "base",
+          "delivery": "letter"
+        },
+        {
+          "id": "S004.07",
+          "type": "narration",
+          "text": "转运吏取走你具名的处置单，留下收文回执。回执证明收了公文，尚不是前线报粮已到。回到客舍，海瑞的复札还压在灯下；每一路，都在等下一张纸。"
+        }
+      ],
+      "mediaCaption": "来函所述 · 东南军营"
+    },
+    {
+      "id": "S005",
+      "title": "上疏前夜",
+      "location": "翌夜 · 京城客舍",
+      "shotId": "M06",
+      "beats": [
+        {
+          "id": "S005.01",
+          "type": "narration",
+          "text": "最后一炷香快燃尽了。你必须决定，这份账明早送到谁手里。",
+          "shotId": "M06"
+        },
+        {
+          "id": "S005.02",
+          "type": "dialogue",
+          "text": "（海瑞复札）\n“既愿具结，就把亲见的逐笔写明。缺了的页，受潮的字，照实列缺。倘有人要你凭空补上一笔，无论他是谁，都请他自己具名。”",
+          "speaker": "hairui",
+          "emotion": "base",
+          "delivery": "letter"
+        },
+        {
+          "id": "S005.03",
+          "type": "dialogue",
+          "text": "徐阶来得很晚。他没有接你手中的匣子，先问原账一路经过了谁。",
+          "speaker": "xujie",
+          "emotion": "base",
+          "memoryCallback": {
+            "key": "ledgerDecision",
+            "prefix": "徐阶没有接匣子。月前的处置，他听你从头说了一遍：\n",
+            "suffix": "\n“明日谁先呈，谁具名，便又是另一回事。你可想清楚了？”",
+            "fallback": "徐阶没有接匣子。\n“原账一路经过了谁？这些名字没有列完，先不忙着送。”"
+          }
+        },
+        {
+          "id": "S005.04",
+          "type": "dialogue",
+          "text": "（忆起白日，张居正将两册纸分开时）\n“若只写倒严，呈上去便是党争。把各项从哪出、往哪去写实了，才有下文。裕王府的人也得拿这两册说话，不能只等严家出错。”",
+          "speaker": "zhangjuzheng",
+          "emotion": "base",
+          "delivery": "memory"
+        },
+        {
+          "id": "S005.05",
+          "type": "dialogue",
+          "text": "（忆起御前）嘉靖让你退下时，又把你叫住。\n“方才那句话，你记着。朕也记着。”",
+          "speaker": "jiajing",
+          "emotion": "base",
+          "memoryCallback": {
+            "key": "courtReply",
+            "prefix": "（忆起御前）嘉靖让你退下时，又把你叫住。\n“你方才说：",
+            "suffix": "”\n“这话是你自己说的。往后，别说是朕替你定的。”",
+            "fallback": "（忆起御前）嘉靖让你退下时，又把你叫住。\n“先办哪一项，是你自己说的。往后，别说是朕替你定的。”"
+          },
+          "delivery": "memory"
+        },
+        {
+          "id": "S005.06",
+          "type": "choice",
+          "text": "明早，这份账走哪条路？",
+          "options": [
+            {
+              "id": "final.public",
+              "label": "联名公开核账",
+              "playerText": "现存原账、经手凭据与我的具结，一并送去核问。哪一笔不曾亲见，我便不认哪一笔。",
+              "responseSpeaker": "hairui",
+              "responseText": "你把自己的具结附在海瑞复札后。札末那一句，此刻再无处绕开：\n“官府收文，不过是头一步。问到你时，今日所写，仍要当面认。”",
+              "consequence": "账册证据需 ≥60；皇权稳定 −6。进入直疏见天：公开受理，尚未判决。",
+              "effects": {
+                "stats": {
+                  "authority": -6
+                },
+                "relationships": {
+                  "hairui": 8,
+                  "yansong": -8
+                },
+                "flags": {
+                  "finalRoute": "public",
+                  "publicLedger": true
+                },
+                "memory": {
+                  "key": "finalDecision",
+                  "text": "联名公开核账，愿意出面说明亲见之事。"
+                }
+              },
+              "requires": [
+                {
+                  "stat": "evidence",
+                  "min": 60
+                }
+              ]
+            },
+            {
+              "id": "final.reform",
+              "label": "分账呈案，先补急项",
+              "playerText": "急用与旧欠，分册具呈。军粮按已核清的安排发去；旧欠不销，以这一案请试分项核销。",
+              "responseSpeaker": "zhangjuzheng",
+              "responseText": "你把张居正留下的两册纸分别具名。白日他的嘱咐仍在耳边：\n“先别把新法二字写大。哪一仓少了，哪一项还欠着，办完这一次，再拿实数回来。”",
+              "consequence": "新政准备需 ≥40，海防供给需 ≥45；新政准备 +10。进入新政初火：一案试办。",
+              "effects": {
+                "stats": {
+                  "reform": 10,
+                  "authority": 3
+                },
+                "relationships": {
+                  "zhangjuzheng": 10
+                },
+                "flags": {
+                  "finalRoute": "reform",
+                  "reformTrial": true,
+                  "accountsRegistered": true
+                },
+                "memory": {
+                  "key": "finalDecision",
+                  "text": "把急用与旧欠分册呈案，申请在本案试办。"
+                }
+              },
+              "requires": [
+                {
+                  "stat": "reform",
+                  "min": 40
+                },
+                {
+                  "stat": "security",
+                  "min": 45
+                }
+              ]
+            },
+            {
+              "id": "final.sealed",
+              "label": "密匣留证，限期回头核账",
+              "playerText": "原账先入匣，留下收文回执。已定的调拨照办，未到的粮仍列未到。旧账到期再核，请阁老也留一份经手。",
+              "responseSpeaker": "xujie",
+              "responseText": "徐阶这才接过匣子，却把回执留在你面前。\n“你拿你的，我留我的。到期凭这个问便是。纸上没有写的话，就不必替老夫传了。”",
+              "consequence": "保留账与回执。已保三日军需且供给 ≥64，进入灰账保海；其余进入忍字收网。",
+              "effects": {
+                "stats": {
+                  "authority": 4
+                },
+                "relationships": {
+                  "xujie": 8
+                },
+                "flags": {
+                  "finalRoute": "sealed",
+                  "reviewReceipt": true
+                },
+                "memory": {
+                  "key": "finalDecision",
+                  "text": "密匣留证，保留收条，要求限期核账。"
+                }
+              },
+              "requires": []
+            }
+          ]
+        },
+        {
+          "id": "S005.07",
+          "type": "narration",
+          "text": "更鼓传过来时，徐阶已经走了。案上少了几张纸，灯下却比先前更空。你收起应留的凭据；门一开，明日便有人照着今日的名字来问。"
+        }
+      ],
+      "mediaCaption": "客舍夜议 · 徐阶到访"
+    }
+  ],
+  "endings": [
+    {
+      "id": "public",
+      "title": "直疏见天",
+      "requires": [
+        {
+          "flag": "finalRoute",
+          "equals": "public"
+        }
+      ],
+      "text": "受理衙门先验封识，再收下原账与具结，海瑞署名的材料另附。堂吏问你住在哪里，何时能传到。你原以为把账送进去就算过了一关，此时才知道，往后这道门还得自己进。",
+      "settlement": [
+        "证据：现存原账与各项经手材料一并入案；没有的副本不会自动补出。",
+        "责任：你须为亲见之事出面作证；未知之事不能代认。",
+        "代价：隐在幕后的退路收窄，皇权稳定下降。",
+        "下一步：核验经手人；尚未判罪，也未宣告严党覆灭。"
+      ],
+      "shotId": "M07",
+      "speaker": "hairui",
+      "mediaCaption": "公开问证 · 海瑞"
+    },
+    {
+      "id": "reform",
+      "title": "新政初火",
+      "requires": [
+        {
+          "flag": "finalRoute",
+          "equals": "reform"
+        }
+      ],
+      "text": "急用与旧欠分作两册，各自登记用印。可核实的军粮按既定安排先发，旧册的欠项一个也没销。张居正收起呈稿前，又把具名处看了一遍——这办法办得通，众人都能说话；办不通，纸上先找得到你。",
+      "settlement": [
+        "军粮：按已有可核实额度办理，旧欠没有凭空补齐。",
+        "证据：经手人与欠项继续留册，不以放粮冲销旧账。",
+        "责任：你和张居正要拿执行结果回来复核。",
+        "下一步：本案试办列案，没有宣布全国改革完成。"
+      ],
+      "shotId": "M08",
+      "speaker": "zhangjuzheng"
+    },
+    {
+      "id": "coast",
+      "title": "灰账保海",
+      "requires": [
+        {
+          "flag": "finalRoute",
+          "equals": "sealed"
+        },
+        {
+          "flag": "protectCoast",
+          "equals": true
+        },
+        {
+          "flag": "armyRoute",
+          "equals": "bridge"
+        },
+        {
+          "stat": "security",
+          "min": 64
+        }
+      ],
+      "text": "三日军需按胡宗宪附单所列先作过渡，旧账另入密匣。你手里留着调拨收文与到期核验的回执。粮到没到，还要等前线回报；这三日过去，谁也不能再拿“军前急用”四字将旧欠推开。",
+      "settlement": [
+        "军需：三日过渡已按附单办理，实际到粮仍等前线回报。",
+        "证据：原账封存，你持收条要求限期复核。",
+        "代价：公开追究暂缓，海瑞仍会质问这次等待。",
+        "下一步：追查军需实收与旧账，不宣告倭患结束。"
+      ],
+      "shotId": "M09",
+      "speaker": "huzongxian"
+    },
+    {
+      "id": "sealed",
+      "title": "忍字收网",
+      "requires": [],
+      "text": "徐阶只在回执上写明收了什么，没写日后替谁说话。你收好自己的这一份，看他带走密匣。旧账暂时不向外摊开，原经手也便暂时不必答；到了期限，再把这张纸拿出来的人，仍得是你。",
+      "settlement": [
+        "证据：按实际留存情况封存，受潮或缺失的部分仍需旁证。",
+        "权限：没有额外圣旨，也没有任何人被提前定罪。",
+        "代价：公开核验延后，未解决的粮和军需仍是欠项。",
+        "下一步：凭收条催办，查到哪里仍由后续证据决定。"
+      ],
+      "shotId": "M09",
+      "speaker": "xujie"
+    }
+  ],
+  "settlementRules": [
+    {
+      "requires": [
+        {
+          "flag": "grainRoute",
+          "equals": "debt"
+        }
+      ],
+      "text": "赈粮：相府三百袋已依暂缓公开之约安排，你仍背着这笔人情。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "grainRoute",
+          "equals": "audited"
+        }
+      ],
+      "text": "赈粮：三百袋另立收据核收，来源、去处与你的签字可查。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "grainRoute",
+          "equals": "official-pending"
+        }
+      ],
+      "text": "赈粮：相府三百袋未接，官仓申请仍待核；没有凭空到账的替代粮。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "ledgerProtected",
+          "equals": false
+        }
+      ],
+      "text": "原账：雨水洇开的两行仍需旁证，本轮没有自动恢复。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "armyRoute",
+          "equals": "frozen"
+        }
+      ],
+      "text": "军需：可疑银路已停，补拨未到前的供给缺口仍在。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "armyRoute",
+          "equals": "separate"
+        }
+      ],
+      "text": "军需：可核军粮与旧欠已经分册，未付欠项保留。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "hasCopy",
+          "equals": true
+        }
+      ],
+      "text": "副本：雨夜已留注明日期与经手的誊本，可与原件核对。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "ledgerCustody",
+          "equals": "hairui"
+        }
+      ],
+      "text": "经手：海瑞收过原账，你已愿为亲见之事署名。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "grainRoute",
+          "equals": "debt"
+        },
+        {
+          "flag": "finalRoute",
+          "equals": "public"
+        }
+      ],
+      "text": "相府之约：你先前许诺暂缓公开，今夜改走公堂；相府仍握着那张交易收条。"
+    },
+    {
+      "requires": [
+        {
+          "flag": "armyRoute",
+          "equals": "bridge"
+        },
+        {
+          "flag": "finalRoute",
+          "equals": "public"
+        }
+      ],
+      "text": "军需与公开：三日军需的过渡安排继续，公开核验不等于已经收回发出的粮。"
+    }
+  ],
+  "versionNotes": [
+    {
+      "version": "1.1.0",
+      "previousVersion": "1.0.1",
+      "scope": "original-work-dialogue-research-and-spatial-continuity",
+      "sources": [
+        "https://njsw.cbg.cn/show/46320-1995099.html",
+        "https://news.cctv.com/performance/20070131/100285.shtml",
+        "https://news.cctv.com/performance/20070117/103395.shtml"
+      ],
+      "changes": [
+        "从标明出版社来源的小说摘录与主创访谈提取人物利益、说话顺序、表面议题与真实压力、沉默动作、财政因果",
+        "对现有适配对白进行原创改写，不标为原著引文",
+        "浙江书札、京城回忆、前线来函分开呈现，消除全员同场与短时跨省往返",
+        "六片开场旁白与所有已冻结媒体文件不改",
+        "返京前依具结点验封账，由玩家押送；ledgerCustody只记录浙江该夜保管方案"
+      ],
+      "mediaChanged": false,
+      "saveCompatibility": "Beat IDs, option IDs, required state fields, numerical deltas and ending conditions unchanged. Compatible versions 1.0.0 and 1.0.1."
+    },
+    {
+      "version": "1.0.1",
+      "scope": "content-only-branch-consistency",
+      "changes": [
+        "停银路不再提前完成终局公开",
+        "恢复皇权稳定世界轴，与角色信任分开",
+        "承诺使用原句，行动摘要不伪装逐字引语",
+        "护账发生在验毕封匣前",
+        "保海需明确三日军需过渡",
+        "补充实有文书、拒粮与暂缓公开的结算明细"
+      ],
+      "mediaChanged": false,
+      "previousVersion": "1.0.0",
+      "saveCompatibility": "Same beat and option IDs, same numerical deltas, same state fields; previously selected army.freeze now means stop and inspect, not already publish. Existing saved state remains valid."
+    }
+  ],
+  "compatibleSaveVersions": [
+    "1.0.0",
+    "1.0.1"
+  ],
+  "timeline": {
+    "frame": "风暴初夜是卷名，主线跨越月前浙江查账、返京交涉与随后两日，不是同一夜跨省往返。",
+    "characters": {
+      "xujieAtZhejiang": "以赴浙前所留书札出现",
+      "hairuiAtYanHouse": "玩家忆起浙江问账时的嘱咐",
+      "huzongxianInBeijing": "军中来函与附单，不是胡宗宪本人入京",
+      "ensembleAtEnding": "书札、分别会见与御前回忆汇聚；徐阶在客舍现场"
+    }
+  }
+}
