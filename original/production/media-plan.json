@@ -1,0 +1,331 @@
+{
+  "worldId": "ming1566-original-opening",
+  "contentVersion": "2.0.0",
+  "model": "seedance-2.5",
+  "ratio": "9:16",
+  "resolution": "480p",
+  "generate_audio": true,
+  "automaticPaidRetries": false,
+  "maxProjectCny": 180,
+  "shots": [
+    {
+      "id": "R01",
+      "title": "消息抵达值房",
+      "duration": 10,
+      "promptFile": "prompts/R01.txt",
+      "referencePaths": [
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "旁白",
+          "text": "一冬无雪。言官已经死了，亏空还在。",
+          "start": 3,
+          "end": 8.3
+        }
+      ],
+      "stateIn": "周云逸已经获罪身亡，书办正在清点年末支用册。",
+      "stateOut": "通报留在册旁，旧账未清；玩家随后决定先整理哪类材料。",
+      "trigger": "",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R01.mp4",
+      "runtimeSha256": "02e0181f8dc88c85e48f4823e2dbdee5839fc3802ee4cadf4f7531e4d78c4adf",
+      "actualDuration": 10.048,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R02",
+      "title": "雪廊递册",
+      "duration": 10,
+      "promptFile": "prompts/R02.txt",
+      "referencePaths": [
+        "assets/anchors/xujie-original.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "徐阶",
+          "text": "谁说了哪一项，记清楚。",
+          "start": 4.2,
+          "end": 8.4
+        }
+      ],
+      "stateIn": "财政廷议即将开始，书办携底册候在廊下。",
+      "stateOut": "徐阶已入门，书办仍持册，尚未选择如何记录。",
+      "trigger": "",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R02.mp4",
+      "runtimeSha256": "ca34ab728a767be1977bd7c4c1fc2a2939537d00fb811db3782fd93d9ad13f73",
+      "actualDuration": 10.08,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R03",
+      "title": "账页铺开",
+      "duration": 12,
+      "promptFile": "prompts/R03.txt",
+      "referencePaths": [
+        "assets/anchors/xujie-original.png",
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "徐阶",
+          "text": "收入在这边。支出在那边。中间空着的，谁来说明？",
+          "start": 5.1,
+          "end": 10.4
+        }
+      ],
+      "stateIn": "廷议进入上一年的支用与亏空，两册账尚未并列。",
+      "stateOut": "两册展开且分居左右；差额未获解释，下一节点继续追问。",
+      "trigger": "",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R03.mp4",
+      "runtimeSha256": "53742268120546a47b72986a72e000139f618cbabae8b4a92e8bdfed457bc908",
+      "actualDuration": 12.064,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R04",
+      "title": "磬声之后",
+      "duration": 10,
+      "promptFile": "prompts/R04.txt",
+      "referencePaths": [
+        "assets/jiajing-scene.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "嘉靖",
+          "text": "账还没有议明白？接着说。",
+          "start": 5.0,
+          "end": 8.5
+        }
+      ],
+      "stateIn": "门外议账声停顿，皇帝一直在附近听。",
+      "stateOut": "嘉靖站在帘前，门外仍待回应；尚未作出国策裁断。",
+      "trigger": "",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R04.mp4",
+      "runtimeSha256": "a0b4640eacb663b8e18ea9a90ba0d57a8a9f9120f348a9a52482b9ea7d8a2f57",
+      "actualDuration": 10.048,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R05",
+      "title": "军前收到多少",
+      "duration": 12,
+      "promptFile": "prompts/R05.txt",
+      "referencePaths": [
+        "assets/anchors/zhangjuzheng-original.png",
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "张居正",
+          "text": "列作军需的，是这一册。真正送到军前的，有多少？",
+          "start": 5.1,
+          "end": 10.3
+        }
+      ],
+      "stateIn": "军费名目与前线实收尚未对齐；没有人已经被定罪。",
+      "stateOut": "两册并排；等待核对实收，不能把账目差异演成已经定罪。",
+      "trigger": "",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R05.mp4",
+      "runtimeSha256": "fc9bde6397d1cb67ddc56b4b96a2856e0b202efc8db56d821627a137f17cb5bb",
+      "actualDuration": 12.064,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R06",
+      "title": "旧账与新岁",
+      "duration": 10,
+      "promptFile": "prompts/R06.txt",
+      "referencePaths": [
+        "assets/anchors/yansong-original.png",
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "严嵩",
+          "text": "旧项要核。今年的开销，也得有个着落。",
+          "start": 4.5,
+          "end": 8.6
+        }
+      ],
+      "stateIn": "张居正的去向追问已经提出，廷议尚无结论。",
+      "stateOut": "旧账仍打开，桌中腾出位置供新财源的议案；没有抹去前面的追问。",
+      "trigger": "",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R06.mp4",
+      "runtimeSha256": "9282c6bfe662e33122b449a160615e452452d8a06c9694f36eba2d9d5cc89ecf",
+      "actualDuration": 10.048,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R07",
+      "title": "绸与稻田",
+      "duration": 12,
+      "promptFile": "prompts/R07.txt",
+      "referencePaths": [
+        "assets/anchors/yansong-original.png",
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "严嵩",
+          "text": "江南的丝绸能换银。田要改，粮从哪里接上，也得议。",
+          "start": 5.1,
+          "end": 10.4
+        }
+      ],
+      "stateIn": "廷议转向筹措新增收入；改稻为桑尚待说明成本。",
+      "stateOut": "绸已经铺开，旧账仍可见；随后文字解释桑树成熟与农户口粮的时间差。",
+      "trigger": "",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R07.mp4",
+      "runtimeSha256": "78ae39ec2aeb6970daae7f7da248f39a161941c9dbbc48e557caad67ce255bd4",
+      "actualDuration": 12.064,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R08",
+      "title": "文书向南",
+      "duration": 10,
+      "promptFile": "prompts/R08.txt",
+      "referencePaths": [
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [],
+      "stateIn": "国策已进入传达程序，本镜只发正式文书；玩家自己的附件去向尚待选择。",
+      "stateOut": "正式文书已出门，玩家附件仍留案上，等待选择；不能预先署名、烧毁或扣留。",
+      "trigger": "",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R08.mp4",
+      "runtimeSha256": "271a9b1c0f6eb47fb216c5ecac07af22957a2e1a28dbd76c3559f2079718117f",
+      "actualDuration": 10.08,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R09",
+      "title": "附议留下",
+      "duration": 10,
+      "promptFile": "prompts/R09.txt",
+      "referencePaths": [
+        "assets/anchors/xujie-original.png",
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "徐阶",
+          "text": "这页留下。提过的事，日后得说得清。",
+          "start": 5.1,
+          "end": 8.6
+        }
+      ],
+      "stateIn": "玩家已确认具名附上民食问题，附件已写好，本镜只演交接。",
+      "stateOut": "附件确实已收入封套；不出现批红、发粮或皇帝采纳。",
+      "trigger": "仅 finalRoute=food 已确认后",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R09.mp4",
+      "runtimeSha256": "e519d431095b94508b4e06f2421c27539efeeb1283f91b1ad99a60a8c3eddd0f",
+      "actualDuration": 10.08,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R10",
+      "title": "待核清单",
+      "duration": 10,
+      "promptFile": "prompts/R10.txt",
+      "referencePaths": [
+        "assets/anchors/zhangjuzheng-original.png",
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "张居正",
+          "text": "新账另立。旧项缺的凭据，一样也要核。",
+          "start": 4.8,
+          "end": 8.6
+        }
+      ],
+      "stateIn": "玩家已确认留底并列待核旧项，没有认定任何人有罪。",
+      "stateOut": "旧账与新账分开，清单随旧账离案，进入继续核对的差事。",
+      "trigger": "仅 finalRoute=audit 已确认后",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R10.mp4",
+      "runtimeSha256": "302ecd2e8a8524740cbdd1f985e132301e51daccb3e47e0afef622895f5f76fc",
+      "actualDuration": 10.08,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R11",
+      "title": "回报有期",
+      "duration": 10,
+      "promptFile": "prompts/R11.txt",
+      "referencePaths": [
+        "assets/anchors/yansong-original.png",
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [
+        {
+          "speaker": "严嵩",
+          "text": "到了浙江，按期报回。难处也须写明。",
+          "start": 5.1,
+          "end": 8.6
+        }
+      ],
+      "stateIn": "玩家已确认具名跟踪浙江回报；这只是发文与核报，不表示地方已经丰收。",
+      "stateOut": "回报清单已交给书办；责任向下传递，不能提前演成浙江已经执行成功。",
+      "trigger": "仅 finalRoute=execution 已确认后",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R11.mp4",
+      "runtimeSha256": "f88860f5ce0c15d2c891decd2f7394215aa2fdf8d295305757d2f755e0f619de",
+      "actualDuration": 10.08,
+      "usedModel": "seedance-2.5"
+    },
+    {
+      "id": "R12",
+      "title": "交割之后",
+      "duration": 10,
+      "promptFile": "prompts/R12.txt",
+      "referencePaths": [
+        "assets/anchors/xiyuan-fiscal-room-v2.png"
+      ],
+      "generate_audio": true,
+      "dialogue": [],
+      "stateIn": "玩家已确认按程交割，不另附政策主张。",
+      "stateOut": "交收簿入格，玩家站在门内；只完成交割，不烧账、不逃走。",
+      "trigger": "仅 finalRoute=formal 已确认后",
+      "status": "reviewed-runtime",
+      "referenceSource": "大明1566-交互影视项目中的原人物锚点；部署包不执行付费生成。",
+      "runtimeFile": "/media/R12.mp4",
+      "runtimeSha256": "425c69a0f26221b29c13d7dd50c2764bf281a63e75980904f2d6cc0a510d5ecb",
+      "actualDuration": 10.08,
+      "usedModel": "seedance-2.5"
+    }
+  ],
+  "sourceBudgetActualCny": 137.510585,
+  "thisRevisionCny": 80.207909
+}

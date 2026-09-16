@@ -1,0 +1,986 @@
+{
+  "schemaVersion": 1,
+  "version": "2.0.0",
+  "contentVersion": "2.0.0",
+  "id": "ming1566-original-opening",
+  "title": "大明1566 · 无雪之冬",
+  "subtitle": "原著开篇 · 国策从何而来",
+  "description": "从周云逸言祸、瑞雪与御前财政廷议，到改稻为桑。你是随堂誊录的书办，必须弄清每一笔钱、每一句话会落到谁身上。",
+  "adaptationNotice": "依据原作开篇事件改编；书办视角、交互对白与文书结果为游戏新写。原著事件、历史事实与玩家分支分别记录。",
+  "player": {
+    "id": "player",
+    "name": "你",
+    "role": "随堂誊录书办",
+    "portrait": null,
+    "context": "你随户部文书入西苑，职责是整理账项、对照经手、誊录廷议。没有批红、调兵、赦免或任免权。"
+  },
+  "statDefinitions": [
+    {
+      "id": "evidence",
+      "label": "账证完整",
+      "min": 0,
+      "max": 100,
+      "description": "留存依据能否经得起后来的追问"
+    },
+    {
+      "id": "fiscal",
+      "label": "财政理解",
+      "min": 0,
+      "max": 100,
+      "description": "是否分清支出、亏空与新增财源"
+    },
+    {
+      "id": "people",
+      "label": "民食关切",
+      "min": 0,
+      "max": 100,
+      "description": "是否把土地与粮食的代价写进文书"
+    },
+    {
+      "id": "risk",
+      "label": "自身风险",
+      "min": 0,
+      "max": 100,
+      "description": "你的署名与陈述承担的政治压力"
+    },
+    {
+      "id": "credibility",
+      "label": "经手可信",
+      "min": 0,
+      "max": 100,
+      "description": "你是否如实注明亲见、转述和未知"
+    }
+  ],
+  "statRule": "均为玩法指标0—100，不是银两、粮食或真实人数；增减按实际完成的文书行动计算。",
+  "initialState": {
+    "stats": {
+      "evidence": 35,
+      "fiscal": 30,
+      "people": 25,
+      "risk": 15,
+      "credibility": 40
+    },
+    "relationships": {
+      "jiajing": 0,
+      "hairui": 0,
+      "yansong": 0,
+      "xujie": 0,
+      "zhangjuzheng": 0,
+      "huzongxian": 0
+    },
+    "flags": {},
+    "memories": {}
+  },
+  "statePolicy": {
+    "owner": "deterministic-story-engine",
+    "agentMayOnlyPropose": true,
+    "mediaMayMutateState": false,
+    "scope": "original-opening"
+  },
+  "scenes": [
+    {
+      "id": "O01",
+      "title": "周云逸之后",
+      "location": "嘉靖三十九年冬 · 京城文书值房",
+      "context": "连年用兵、灾荒与宫中支出叠在一起。无雪使财政困境又变成君臣之间不能轻说的事。",
+      "shotId": "R01",
+      "beats": [
+        {
+          "id": "O01.01",
+          "type": "narration",
+          "text": "一冬无雪。屋檐下的水缸结了薄冰，宫门外的地面却仍是干的。你压住一叠待抄的支用册，听见门外的脚步忽然停住。",
+          "shotId": "R01"
+        },
+        {
+          "id": "O01.02",
+          "type": "narration",
+          "text": "在这个讲天人感应的朝廷，雨雪不是闲话。一个官员把天象与政事连在一起说，就可能被问：这句话究竟冲着谁？"
+        },
+        {
+          "id": "O01.03",
+          "type": "narration",
+          "text": "钦天监监正周云逸因进谏获罪，已死于廷杖。消息送到文书房时，没人敢追问刑场的情形，众人先把案上有关奏议的纸收了起来。"
+        },
+        {
+          "id": "O01.04",
+          "type": "narration",
+          "text": "你不是进言的大臣，也不在刑场。你只知道，明年的开支仍要议；去年没有填上的亏空，也不会因为一个人死去就消失。"
+        },
+        {
+          "id": "O01.05",
+          "type": "narration",
+          "text": "年末的账分作几摞：宫用、河工、军需，以及地方送来的灾情。每一摞都有人签过字，却没有一摞愿意替别处认下差额。"
+        },
+        {
+          "id": "O01.06",
+          "type": "narration",
+          "text": "同房的老书办把你的砚往里推了推：“传闻别入账。可亲手经办过的，也别等别人来替你记。”"
+        },
+        {
+          "id": "O01.07",
+          "type": "choice",
+          "text": "明日整理随堂底册，你先做哪一件？",
+          "options": [
+            {
+              "id": "opening.sources",
+              "label": "逐项注明账目来处",
+              "playerText": "先把哪一衙门送来、哪一日收到写清。",
+              "responseText": "你在封面里页另列交收记录。后来的问话有了落点，你也成为能被传问的人。",
+              "responseSpeaker": "player",
+              "effects": {
+                "stats": {
+                  "evidence": 8,
+                  "risk": 3,
+                  "credibility": 4
+                },
+                "memory": {
+                  "key": "firstConcern",
+                  "text": "你最早留心的是：每一笔账究竟从哪里来。"
+                }
+              },
+              "requires": [],
+              "consequence": "账证完整 +8；自身风险 +3；经手可信 +4"
+            },
+            {
+              "id": "opening.need",
+              "label": "把急用与积欠分开",
+              "playerText": "军前急需另列，旧日积欠不混进去。",
+              "responseText": "你没有替任何一笔销账，只把时限分清。上头若要合并，总得再问一次。",
+              "responseSpeaker": "player",
+              "effects": {
+                "stats": {
+                  "fiscal": 8,
+                  "credibility": 4
+                },
+                "memory": {
+                  "key": "firstConcern",
+                  "text": "你最早留心的是：急用不能掩掉旧欠。"
+                }
+              },
+              "requires": [],
+              "consequence": "财政理解 +8；经手可信 +4"
+            },
+            {
+              "id": "opening.people",
+              "label": "附上地方灾情摘要",
+              "playerText": "钱粮的册子旁，也该有地方正在挨饿的情形。",
+              "responseText": "摘要另夹一页，没有挤进正式账项。它能否被看见，还取决于谁肯把它递上去。",
+              "responseSpeaker": "player",
+              "effects": {
+                "stats": {
+                  "people": 8,
+                  "risk": 4
+                },
+                "memory": {
+                  "key": "firstConcern",
+                  "text": "你最早留心的是：账页之外还有百姓的饭。"
+                }
+              },
+              "requires": [],
+              "consequence": "民食关切 +8；自身风险 +4"
+            }
+          ]
+        },
+        {
+          "id": "O01.08",
+          "type": "narration",
+          "text": "旧年过去，皇帝斋戒祈雪。你被点名随账册入西苑，只负责取件、誊录、对照。你可以说清账从何来，却不能替任何大臣作主。"
+        }
+      ],
+      "stageCharacter": "player",
+      "background": "/original/assets/anchors/xiyuan-fiscal-room-v2.png"
+    },
+    {
+      "id": "O02",
+      "title": "雪落西苑",
+      "location": "嘉靖四十年正月 · 西苑外廊",
+      "context": "雪带来祥瑞的说法，也改变了会议上的气势；财政缺口仍在，周云逸的所谓后台仍是威胁。",
+      "shotId": "R02",
+      "beats": [
+        {
+          "id": "O02.01",
+          "type": "narration",
+          "text": "议财的日子将近，西苑终于落雪。廊下有人抬头，随即把笑意收住：报喜有报喜的次序，抢在谁前面，也是规矩。",
+          "shotId": "R02"
+        },
+        {
+          "id": "O02.02",
+          "type": "narration",
+          "text": "司礼监管的是皇帝身边的文书与传达。吕芳居掌印的位置，冯保还得看他的脸色。同一场雪，在宫里既是天象，也是升降进退的机会。"
+        },
+        {
+          "id": "O02.03",
+          "type": "dialogue",
+          "text": "内阁诸臣入苑，披风上落着细雪。徐阶停在廊内，将你手中的底册往灯下移了移。",
+          "speaker": "xujie",
+          "emotion": "base"
+        },
+        {
+          "id": "O02.04",
+          "type": "dialogue",
+          "text": "“听见什么，不等于知道什么。你随堂，只把谁说了哪一项记准。”他说完便向门里走，没有许诺会替你挡住所有问话。",
+          "speaker": "xujie",
+          "emotion": "base"
+        },
+        {
+          "id": "O02.05",
+          "type": "narration",
+          "text": "严嵩为首辅，许多政务经他转呈；徐阶、高拱、张居正靠近裕王一边，却各有要保住的人和事。有人等着问账，也有人等着把问账说成攻击皇帝。"
+        },
+        {
+          "id": "O02.06",
+          "type": "narration",
+          "text": "嘉靖很久不临常朝，却仍控制谁能奏、谁能批、谁来担责。御座暂空，也不等于他听不见。你被安排在外案，低头整理纸笔。"
+        },
+        {
+          "id": "O02.07",
+          "type": "dialogue",
+          "text": "“若有人追问周云逸的话是谁授意，你只答你亲见的。”徐阶没有再说下去。雪水从你的袖口滴到地上。",
+          "speaker": "xujie",
+          "emotion": "base"
+        },
+        {
+          "id": "O02.08",
+          "type": "choice",
+          "text": "你在随堂笔记首页留下怎样的提醒？",
+          "options": [
+            {
+              "id": "record.separate",
+              "label": "将亲见与转述分栏",
+              "playerText": "未经核对的话，先记为转述。",
+              "responseText": "你留出两栏。以后有人要把传闻写成定论，纸上就会出现一次可追问的改动。",
+              "responseSpeaker": "xujie",
+              "effects": {
+                "stats": {
+                  "credibility": 8,
+                  "evidence": 4
+                },
+                "relationships": {
+                  "xujie": 1
+                },
+                "flags": {
+                  "carefulRecord": true
+                }
+              },
+              "requires": [],
+              "consequence": "经手可信 +8；账证完整 +4"
+            },
+            {
+              "id": "record.context",
+              "label": "连同话前话后记录",
+              "playerText": "只抄一句，容易把意思抄反；我把前后议项也记上。",
+              "responseText": "徐阶点了一下账册的封面，让你把议项与出处相对。多记一层，也就多担一层经手。",
+              "responseSpeaker": "xujie",
+              "effects": {
+                "stats": {
+                  "evidence": 7,
+                  "fiscal": 4,
+                  "risk": 4
+                },
+                "relationships": {
+                  "xujie": 1
+                },
+                "flags": {
+                  "contextRecord": true
+                }
+              },
+              "requires": [],
+              "consequence": "账证完整 +7；财政理解 +4；自身风险 +4"
+            },
+            {
+              "id": "record.official",
+              "label": "仅誊正式交下的条目",
+              "playerText": "私下传来的话不录，只誊正式交下的文书。",
+              "responseText": "你守住了差事的边界。没有进入正式程序的疑点，也可能随之从纸上消失。",
+              "responseSpeaker": "xujie",
+              "effects": {
+                "stats": {
+                  "risk": -3,
+                  "credibility": 4,
+                  "evidence": -2
+                },
+                "relationships": {
+                  "xujie": 1
+                },
+                "flags": {
+                  "formalOnly": true
+                }
+              },
+              "requires": [],
+              "consequence": "自身风险 -3；经手可信 +4；账证完整 -2"
+            }
+          ]
+        }
+      ],
+      "stageCharacter": "xujie",
+      "background": "/original/assets/anchors/xiyuan-fiscal-room-v2.png"
+    },
+    {
+      "id": "O03",
+      "title": "去年的账",
+      "location": "西苑 · 御前财政廷议",
+      "context": "先议已经花掉的钱，再争谁负亏空。签过字与实际拿到物资，是两件不同的事。",
+      "shotId": "R03",
+      "beats": [
+        {
+          "id": "O03.01",
+          "type": "narration",
+          "text": "总账展开，纸页擦过案沿。徐阶把支出与收入分置两侧，手边的笔停在相抵之后仍空着的位置。",
+          "shotId": "R03"
+        },
+        {
+          "id": "O03.02",
+          "type": "narration",
+          "text": "朝廷不是一只永远装满银子的箱子。灾荒会减收，河工、边防与宫中营建却都要支出；临时挪借可以过眼前，来年仍得补回。"
+        },
+        {
+          "id": "O03.03",
+          "type": "narration",
+          "text": "眼前争的是去年的差额，桌外等着的却是今年的银。谁承认某项支出出了问题，谁就可能先被追究；谁能提出新财源，谁又有机会主导下一步。"
+        },
+        {
+          "id": "O03.04",
+          "type": "narration",
+          "text": "高拱与严世蕃在席间争执。你听见账项被反复提起，也听见周云逸的名字又一次压过了账页的声音。"
+        },
+        {
+          "id": "O03.05",
+          "type": "dialogue",
+          "text": "“账上列得明白，不等于事情办得明白。”徐阶让你把原来签押的页次取来。",
+          "speaker": "xujie",
+          "emotion": "base"
+        },
+        {
+          "id": "O03.06",
+          "type": "narration",
+          "text": "你翻到签押页：同意支用，只说明有人批准了这笔钱；送达何处、办成何事，还得看另一份回报。把两者混作一件事，亏空就没有人能说清。"
+        },
+        {
+          "id": "O03.07",
+          "type": "narration",
+          "text": "隔着门与帘，铜磬忽然响了一声。嘉靖起身，放下手中的器物，向议事声传来的方向走近。",
+          "shotId": "R04"
+        },
+        {
+          "id": "O03.08",
+          "type": "narration",
+          "text": "嘉靖追问的焦点不只在数字。他也要知道：谁借账说人，谁借人说他，谁又能把今后的钱拿出来。你不能凭一声磬响猜他已经站在哪边。"
+        },
+        {
+          "id": "O03.09",
+          "type": "choice",
+          "text": "轮到你递页，先把哪份放在上面？",
+          "options": [
+            {
+              "id": "accounts.original",
+              "label": "原账与签押并置",
+              "playerText": "原账在前，签押附后；两处都请过目。",
+              "responseText": "徐阶翻回前页，没有替你解释。原账与签押同时在案，谁也不能只用其中一张替另一张作结论。",
+              "responseSpeaker": "xujie",
+              "effects": {
+                "stats": {
+                  "evidence": 8,
+                  "risk": 4,
+                  "credibility": 3
+                },
+                "relationships": {
+                  "xujie": 1
+                }
+              },
+              "requires": [],
+              "consequence": "账证完整 +8；自身风险 +4；经手可信 +3"
+            },
+            {
+              "id": "accounts.flow",
+              "label": "列出支用到回报的流程",
+              "playerText": "支用了多少、交到哪里、回报何时到，依次排开。",
+              "responseText": "你把零散文书排成一条经手链。它还不能证明贪墨，却让需要核对的空处更清楚。",
+              "responseSpeaker": "zhangjuzheng",
+              "effects": {
+                "stats": {
+                  "fiscal": 8,
+                  "evidence": 4
+                },
+                "relationships": {
+                  "zhangjuzheng": 1
+                }
+              },
+              "requires": [],
+              "consequence": "财政理解 +8；账证完整 +4"
+            },
+            {
+              "id": "accounts.summary",
+              "label": "按交下的总数誊录",
+              "playerText": "先依正式总数誊清，附页暂不动。",
+              "responseText": "誊本很快完成。你没有越职，却也没有把账后那些空处带进这一次问话。",
+              "responseSpeaker": "player",
+              "effects": {
+                "stats": {
+                  "credibility": 3,
+                  "risk": -2,
+                  "evidence": -3
+                }
+              },
+              "requires": [],
+              "consequence": "经手可信 +3；自身风险 -2；账证完整 -3"
+            }
+          ]
+        }
+      ],
+      "stageCharacter": "xujie",
+      "background": "/original/assets/anchors/xiyuan-fiscal-room-v2.png"
+    },
+    {
+      "id": "O04",
+      "title": "军费落在何处",
+      "location": "西苑 · 同一次廷议",
+      "context": "张居正从前线实际所得追问军费。查明去向可以保护军需，也会碰到宫用与海贸这两条线。",
+      "shotId": "R05",
+      "beats": [
+        {
+          "id": "O04.01",
+          "type": "narration",
+          "text": "张居正起身，将军需簿摊到外案，抽出一份回报放在旁边。两册账的条目相近，所记的去处却不能直接相抵。",
+          "shotId": "R05"
+        },
+        {
+          "id": "O04.02",
+          "type": "narration",
+          "text": "他从兵事切入，不等于此刻已经有能力整顿全国财政。他要先问清：写成军费的支用，有多少真正变成了前线能用的船、粮和军械。"
+        },
+        {
+          "id": "O04.03",
+          "type": "narration",
+          "text": "军船、宫中木料与海外商路牵连在一起。支出名目和实际用途错在何处，正是政争能撬动的缝；你仍须分清所知与所猜。"
+        },
+        {
+          "id": "O04.04",
+          "type": "dialogue",
+          "text": "“我要的是到军前的数，不是纸上写得好看的数。”张居正将其中一页推近，但没有叫你改掉原簿。",
+          "speaker": "zhangjuzheng",
+          "emotion": "base"
+        },
+        {
+          "id": "O04.05",
+          "type": "narration",
+          "text": "门外风起，压在册下的一张附页被掀起。那是等待核对的军需回报。你能先按住纸角，再把它交还原来经手的人。"
+        },
+        {
+          "id": "O04.06",
+          "type": "qte",
+          "text": "按住将被风带走的附页。",
+          "durationMs": 5000,
+          "actionLabel": "按住附页",
+          "success": {
+            "id": "page.held",
+            "effects": {
+              "stats": {
+                "evidence": 3,
+                "credibility": 2
+              },
+              "flags": {
+                "pageHeld": true
+              }
+            },
+            "responseText": "你压住纸角，页次还在，随后把附页交还。账没有因此多出一笔证据，只是少了一次遗失。"
+          },
+          "failure": {
+            "id": "page.recovered",
+            "effects": {
+              "stats": {
+                "risk": 2
+              },
+              "flags": {
+                "pageHeld": false
+              }
+            },
+            "responseText": "附页落到案下，外案书办拾回，请你当面核清页次后再交。耽误了一会儿，没有凭空丢掉整本账。"
+          }
+        },
+        {
+          "id": "O04.07",
+          "type": "narration",
+          "text": "严嵩起身，伸手把相抵不上的两份簿册分开。他既要保住朝廷运转，也不能让追账立即变成对严家办事系统的清算。",
+          "shotId": "R06"
+        },
+        {
+          "id": "O04.08",
+          "type": "dialogue",
+          "text": "“差项要问。新一年的开销，也不能停在这里等。”严嵩把话拉回如何筹钱。他没有回答所有旧账，却给将要提出的办法让出位置。",
+          "speaker": "yansong",
+          "emotion": "base"
+        },
+        {
+          "id": "O04.09",
+          "type": "free_input",
+          "text": "你若只记“亏空”，便丢了实际去向；若只记“以后筹钱”，旧账又可能被盖过去。你要怎样补这一段？",
+          "fallbackRuleId": "reply.clarify",
+          "maxLength": 600,
+          "placeholder": "写下你要保留的核对原则，例如：新财源另列，军前收据仍须追查。",
+          "denyKeywords": [
+            "立即诛杀",
+            "凭空变出",
+            "直接退位"
+          ],
+          "rules": [
+            {
+              "id": "reply.records",
+              "keywords": [
+                "原账",
+                "收据",
+                "经手",
+                "核",
+                "证",
+                "凭据"
+              ],
+              "label": "依据分列",
+              "responseSpeaker": "zhangjuzheng",
+              "responseText": "“就照这个意思，先把缺哪份写出来。”他只接受核对请求，没有把疑点当成已经定罪。",
+              "effects": {
+                "stats": {
+                  "evidence": 5,
+                  "credibility": 4
+                },
+                "memory": {
+                  "key": "ownPrinciple",
+                  "text": "{input}"
+                }
+              }
+            },
+            {
+              "id": "reply.people",
+              "keywords": [
+                "百姓",
+                "粮",
+                "田",
+                "吃",
+                "饿"
+              ],
+              "label": "民食附议",
+              "responseSpeaker": "xujie",
+              "responseText": "“把因由也写上，别只留一句爱民。”徐阶让你说明新财源怎样影响吃饭的人。",
+              "effects": {
+                "stats": {
+                  "people": 6,
+                  "risk": 2
+                },
+                "memory": {
+                  "key": "ownPrinciple",
+                  "text": "{input}"
+                }
+              }
+            },
+            {
+              "id": "reply.separate",
+              "keywords": [
+                "分",
+                "新",
+                "旧",
+                "财",
+                "支出"
+              ],
+              "label": "新旧分清",
+              "responseSpeaker": "yansong",
+              "responseText": "“各有各的来处，就各留各的账。”严嵩没有赞成追究任何人，却承认新的财源不能在纸上替代旧日凭据。",
+              "effects": {
+                "stats": {
+                  "fiscal": 6,
+                  "credibility": 3
+                },
+                "memory": {
+                  "key": "ownPrinciple",
+                  "text": "{input}"
+                }
+              }
+            },
+            {
+              "id": "reply.clarify",
+              "keywords": [],
+              "fallback": true,
+              "label": "据实附记",
+              "responseSpeaker": "xujie",
+              "responseText": "“先作附记。能核实到哪一步，再说哪一步。”这句话暂不改变廷议，只保留在你负责的材料里。",
+              "effects": {
+                "stats": {
+                  "credibility": 3
+                },
+                "memory": {
+                  "key": "ownPrinciple",
+                  "text": "{input}"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "O04.10",
+          "type": "narration",
+          "text": "你的话先成为一份待确认的附记。只有确认之后，它才算你愿意署名承担的主张；原话会随章末文书一起留下。"
+        }
+      ],
+      "stageCharacter": "zhangjuzheng",
+      "background": "/original/assets/anchors/xiyuan-fiscal-room-v2.png"
+    },
+    {
+      "id": "O05",
+      "title": "改稻为桑",
+      "location": "西苑 · 廷议转向新财源",
+      "context": "严嵩以江南丝绸与海外贸易寻找新收入。稻田改种桑树，就把国库问题推向地方的土地和口粮。",
+      "shotId": "R07",
+      "beats": [
+        {
+          "id": "O05.01",
+          "type": "narration",
+          "text": "严嵩把一卷素绸放在账旁，沿案面展开。素绸尽头，是仍未填平的差额。在这张桌上，土地和劳作开始被折算成未来的银。",
+          "shotId": "R07"
+        },
+        {
+          "id": "O05.02",
+          "type": "narration",
+          "text": "丝绸卖到海外可以带来收入；要多织绸，便要更多生丝、桑叶与织工。刚刚提出的“改稻为桑”，就是把种粮的田转向供丝织业的桑田。"
+        },
+        {
+          "id": "O05.03",
+          "type": "narration",
+          "text": "问题在于，桑树和新收入不会当天长成。农户眼前靠稻谷吃饭、纳粮。若只压下期限，不安排转换期间的口粮与成本，朝廷的新财源就可能先成为地方催逼。"
+        },
+        {
+          "id": "O05.04",
+          "type": "narration",
+          "text": "严嵩需要证明自己还能为国库筹钱；嘉靖需要银，也需要各方互相制衡；徐阶一边的人可以追问执行，却不能把反对严家和承担天下混作一回事。"
+        },
+        {
+          "id": "O05.05",
+          "type": "narration",
+          "text": "会议外又有关于裕王皇孙的消息传来。宗室喜讯改变了气氛，几方对日后权力的计算并没有停止。你不能把朝局的转向全归在自己刚才那段附记上。"
+        },
+        {
+          "id": "O05.06",
+          "type": "dialogue",
+          "text": "“能生出财来，也要问多久生得出来。”徐阶将待发的条目移到灯下。此刻能争取的是让实施条件被说清，不是由一个书办宣布国策无效。",
+          "speaker": "xujie",
+          "emotion": "base"
+        },
+        {
+          "id": "O05.07",
+          "type": "choice",
+          "text": "要在你负责的附件里突出哪一项？",
+          "options": [
+            {
+              "id": "policy.food",
+              "label": "列明改田期间的口粮",
+              "playerText": "桑未成、稻已停，百姓先吃什么？请把过渡口粮列作待议。",
+              "responseText": "徐阶让你保留这条问句。它还不是发粮许可，却使将来“未曾有人提过”的说法少了一分余地。",
+              "responseSpeaker": "xujie",
+              "effects": {
+                "stats": {
+                  "people": 10,
+                  "risk": 5,
+                  "credibility": 3
+                },
+                "relationships": {
+                  "xujie": 1
+                },
+                "flags": {
+                  "foodClause": true
+                }
+              },
+              "requires": [],
+              "consequence": "民食关切 +10；自身风险 +5；经手可信 +3"
+            },
+            {
+              "id": "policy.audit",
+              "label": "新财源与旧亏空分册",
+              "playerText": "新来的钱按新账走，旧项仍要逐条核回。",
+              "responseText": "张居正看过两册的封套，让你各留页次。今后的收入不能自动证明去年的支出无误。",
+              "responseSpeaker": "zhangjuzheng",
+              "effects": {
+                "stats": {
+                  "evidence": 8,
+                  "fiscal": 6,
+                  "risk": 3
+                },
+                "relationships": {
+                  "zhangjuzheng": 1
+                },
+                "flags": {
+                  "auditClause": true
+                }
+              },
+              "requires": [],
+              "consequence": "账证完整 +8；财政理解 +6；自身风险 +3"
+            },
+            {
+              "id": "policy.schedule",
+              "label": "列清各地执行与回报时限",
+              "playerText": "改多少田、何时回报、谁来具名，先列明。",
+              "responseText": "严嵩收起绸卷，准你按现有议项誊附。多出来的是可追问的经手，不是已经落实的收成。",
+              "responseSpeaker": "yansong",
+              "effects": {
+                "stats": {
+                  "fiscal": 9,
+                  "credibility": 4
+                },
+                "relationships": {
+                  "yansong": 1
+                },
+                "flags": {
+                  "scheduleClause": true
+                }
+              },
+              "requires": [],
+              "consequence": "财政理解 +9；经手可信 +4"
+            }
+          ]
+        },
+        {
+          "id": "O05.08",
+          "type": "narration",
+          "text": "那卷素绸已被重新卷好。你再看账册，才看清议题怎样变了：先是去年谁花了钱，后来变成今年谁能弄到钱，最后将由远处种田的人承受期限。"
+        }
+      ],
+      "stageCharacter": "yansong",
+      "background": "/original/assets/anchors/xiyuan-fiscal-room-v2.png"
+    },
+    {
+      "id": "O06",
+      "title": "雪后的去路",
+      "location": "廷议散后 · 发文值房",
+      "context": "改稻为桑将推行到浙江。原著后续的冲突尚未发生；你现在能决定的是自己的记录怎样留下。",
+      "shotId": "R08",
+      "beats": [
+        {
+          "id": "O06.01",
+          "type": "narration",
+          "text": "散议后，条目被送到发文案。缠带穿过封套，纸角压齐，送往浙江的文书将离开西苑。门外雪光很亮，案上仍有未核清的旧账。",
+          "shotId": "R08"
+        },
+        {
+          "id": "O06.02",
+          "type": "narration",
+          "text": "浙江既是赋税重地，也是东南军务要地。胡宗宪必须同时顾及朝命、师门与地方安定；国策到他手上，就不再只是纸上的财源。"
+        },
+        {
+          "id": "O06.03",
+          "type": "narration",
+          "text": "你在旧日来往文书中见过海瑞这个名字。此刻，他远在南方，并不知道西苑案上刚刚发生的争执。再过些日子，这道政令会与他的命途相逢。"
+        },
+        {
+          "id": "O06.04",
+          "type": "narration",
+          "text": "你从头记起自己最先在意的事。",
+          "memoryCallback": {
+            "key": "firstConcern",
+            "prefix": "你翻到首页：",
+            "suffix": " 此刻再读，已不只是一句做事的习惯。",
+            "fallback": "你翻到首页，仍能看见最初分下的几摞账。"
+          }
+        },
+        {
+          "id": "O06.05",
+          "type": "narration",
+          "text": "自己的附议仍在。",
+          "memoryCallback": {
+            "key": "ownPrinciple",
+            "prefix": "你确认过的原话是：“",
+            "suffix": "” 这句话不会替国策下结论，却会与经手人的名字一起留下。",
+            "fallback": "你没有留下可确认的附议。"
+          }
+        },
+        {
+          "id": "O06.06",
+          "type": "dialogue",
+          "text": "徐阶临走前回头：“留下的东西，日后有人会问。没留下的，也未必就没人问。”他看了看你案上那几份纸，没有替你选。",
+          "speaker": "xujie",
+          "emotion": "base"
+        },
+        {
+          "id": "O06.07",
+          "type": "choice",
+          "text": "这一章，到此处落笔。你怎样处理自己负责的文书？",
+          "options": [
+            {
+              "id": "ending.food",
+              "label": "具名附上民食问题",
+              "playerText": "我把过渡口粮这一条附上，署自己的经手名。",
+              "responseText": "附件没有换来立即停令。你留下了问题，也留下了别人能找到的名字。",
+              "responseSpeaker": "xujie",
+              "effects": {
+                "stats": {
+                  "people": 6,
+                  "risk": 7
+                },
+                "relationships": {
+                  "xujie": 1
+                },
+                "flags": {
+                  "finalRoute": "food"
+                }
+              },
+              "requires": [],
+              "consequence": "民食关切 +6；自身风险 +7"
+            },
+            {
+              "id": "ending.audit",
+              "label": "留底并列出待核旧项",
+              "playerText": "誊本送出，底册留存；未核的项逐一标明。",
+              "responseText": "张居正取走待核清单，旧账没有被新财源一笔抹平。你往后还得接住追问。",
+              "responseSpeaker": "zhangjuzheng",
+              "effects": {
+                "stats": {
+                  "evidence": 7,
+                  "risk": 5
+                },
+                "relationships": {
+                  "zhangjuzheng": 1
+                },
+                "flags": {
+                  "finalRoute": "audit"
+                }
+              },
+              "requires": [],
+              "consequence": "账证完整 +7；自身风险 +5"
+            },
+            {
+              "id": "ending.execution",
+              "label": "具名跟踪浙江回报",
+              "playerText": "依已议条目誊清，列下经手与回报日期。",
+              "responseText": "严嵩收下按期报回的清单。此后若地方只报喜不报难，你就要决定怎样记。",
+              "responseSpeaker": "yansong",
+              "effects": {
+                "stats": {
+                  "fiscal": 6,
+                  "risk": 4
+                },
+                "relationships": {
+                  "yansong": 1
+                },
+                "flags": {
+                  "finalRoute": "execution"
+                }
+              },
+              "requires": [],
+              "consequence": "财政理解 +6；自身风险 +4"
+            },
+            {
+              "id": "ending.formal",
+              "label": "按程交割，不另作附议",
+              "playerText": "照交下的文书发出，另外记清自己的交收。",
+              "responseText": "你完成了本职交割。没有新增的承诺，也没有凭此跳出将来的问责。",
+              "responseSpeaker": "player",
+              "effects": {
+                "stats": {
+                  "credibility": 4,
+                  "risk": -2
+                },
+                "flags": {
+                  "finalRoute": "formal"
+                }
+              },
+              "requires": [],
+              "consequence": "经手可信 +4；自身风险 -2"
+            }
+          ]
+        },
+        {
+          "id": "O06.08",
+          "type": "narration",
+          "text": "马铃声渐远。雪盖住了宫道，没有盖住那道刚要向南走的催办。下一章，田与粮会回答这张桌上没有问完的问题。"
+        }
+      ],
+      "stageCharacter": "player",
+      "background": "/original/assets/anchors/xiyuan-fiscal-room-v2.png"
+    }
+  ],
+  "endings": [
+    {
+      "id": "food",
+      "title": "纸上有民食",
+      "requires": [
+        {
+          "flag": "finalRoute",
+          "equals": "food"
+        }
+      ],
+      "text": "你把转换期间的口粮问题具名附在文书后。国策照旧向南，附件没有变成圣旨，但将来有人说无人提醒时，这一页仍在。",
+      "shotId": "R09",
+      "speaker": "xujie",
+      "settlement": [
+        "原著事件：改稻为桑进入推行阶段，未由玩家撤销。",
+        "本局文书：你的附议已留；是否被采纳，尚无结论。",
+        "记忆：已确认的原话随本局存档保留。",
+        "后续：浙江执行与民食冲突尚待展开，不提前宣告人物结局。"
+      ]
+    },
+    {
+      "id": "audit",
+      "title": "旧账没有合上",
+      "requires": [
+        {
+          "flag": "finalRoute",
+          "equals": "audit"
+        }
+      ],
+      "text": "你留下底册与待核条目。新的收入计划没有替旧日的支用结清。张居正接过的是核对工作，不是已经足以倒严的罪证。",
+      "shotId": "R10",
+      "speaker": "zhangjuzheng",
+      "settlement": [
+        "原著事件：改稻为桑进入推行阶段，未由玩家撤销。",
+        "本局文书：你承担继续核对的差事，不能把疑点写成定罪。",
+        "记忆：已确认的原话随本局存档保留。",
+        "后续：浙江执行与民食冲突尚待展开，不提前宣告人物结局。"
+      ]
+    },
+    {
+      "id": "execution",
+      "title": "随令南行",
+      "requires": [
+        {
+          "flag": "finalRoute",
+          "equals": "execution"
+        }
+      ],
+      "text": "你将执行、经手与回报逐条誊清。纸上的期限将走向浙江，若当地的回报与实际粮食不合，下一次就不能只问字写得整不整齐。",
+      "shotId": "R11",
+      "speaker": "yansong",
+      "settlement": [
+        "原著事件：改稻为桑进入推行阶段，未由玩家撤销。",
+        "本局文书：你进入执行链，也更接近它会制造的问题。",
+        "记忆：已确认的原话随本局存档保留。",
+        "后续：浙江执行与民食冲突尚待展开，不提前宣告人物结局。"
+      ]
+    },
+    {
+      "id": "formal",
+      "title": "交割之后",
+      "requires": [
+        {
+          "flag": "finalRoute",
+          "equals": "formal"
+        }
+      ],
+      "text": "你照程送出了文书，记清交接。今日没有多说的话，不代表明日没有责任。朝议结束，你的差事只是换了一张案。",
+      "shotId": "R12",
+      "speaker": "player",
+      "settlement": [
+        "原著事件：改稻为桑进入推行阶段，未由玩家撤销。",
+        "本局文书：你保留交收依据，没有额外政策承诺。",
+        "记忆：已确认的原话随本局存档保留。",
+        "后续：浙江执行与民食冲突尚待展开，不提前宣告人物结局。"
+      ]
+    }
+  ],
+  "settlementRules": [],
+  "versionNotes": [
+    {
+      "version": "2.0.0",
+      "scope": "原著开篇、完整因果与动作对白重制；与风暴初夜存档隔离。"
+    }
+  ],
+  "compatibleSaveVersions": [],
+  "timeline": {
+    "opening": "嘉靖三十九年冬",
+    "main": "嘉靖四十年正月，财政廷议前后",
+    "end": "改稻为桑令发浙江，尚未到毁堤情节"
+  }
+}
