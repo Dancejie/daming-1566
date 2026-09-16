@@ -1,0 +1,79 @@
+{
+  "hairui": {
+    "name": "海瑞",
+    "anchor": "left",
+    "emotions": {
+      "base": "./assets/characters/hairui/hairui_base.png",
+      "xi": "./assets/characters/hairui/hairui_xi.png",
+      "nu": "./assets/characters/hairui/hairui_nu.png",
+      "ai": "./assets/characters/hairui/hairui_ai.png",
+      "le": "./assets/characters/hairui/hairui_le.png"
+    }
+  },
+  "jiajing": {
+    "name": "嘉靖",
+    "anchor": "center",
+    "emotions": {
+      "base": "./assets/characters/jiajing/jiajing_base.png",
+      "xi": "./assets/characters/jiajing/jiajing_xi.png",
+      "nu": "./assets/characters/jiajing/jiajing_nu.png",
+      "ai": "./assets/characters/jiajing/jiajing_ai.png",
+      "le": "./assets/characters/jiajing/jiajing_le.png"
+    }
+  },
+  "yansong": {
+    "name": "严嵩",
+    "anchor": "right",
+    "emotions": {
+      "base": "./assets/characters/yansong/yansong_base.png",
+      "xi": "./assets/characters/yansong/yansong_xi.png",
+      "nu": "./assets/characters/yansong/yansong_nu.png",
+      "ai": "./assets/characters/yansong/yansong_ai.png",
+      "le": "./assets/characters/yansong/yansong_le.png"
+    }
+  },
+  "xujie": {
+    "name": "徐阶",
+    "anchor": "left",
+    "emotions": {
+      "base": "./assets/characters/xujie/xujie_base.png",
+      "xi": "./assets/characters/xujie/xujie_xi.png",
+      "nu": "./assets/characters/xujie/xujie_nu.png",
+      "ai": "./assets/characters/xujie/xujie_ai.png",
+      "le": "./assets/characters/xujie/xujie_le.png"
+    }
+  },
+  "zhangjuzheng": {
+    "name": "张居正",
+    "anchor": "center",
+    "emotions": {
+      "base": "./assets/characters/zhangjuzheng/zhangjuzheng_base.png",
+      "xi": "./assets/characters/zhangjuzheng/zhangjuzheng_xi.png",
+      "nu": "./assets/characters/zhangjuzheng/zhangjuzheng_nu.png",
+      "ai": "./assets/characters/zhangjuzheng/zhangjuzheng_ai.png",
+      "le": "./assets/characters/zhangjuzheng/zhangjuzheng_le.png"
+    }
+  },
+  "huzongxian": {
+    "name": "胡宗宪",
+    "anchor": "right",
+    "emotions": {
+      "base": "./assets/characters/huzongxian/huzongxian_base.png",
+      "xi": "./assets/characters/huzongxian/huzongxian_xi.png",
+      "nu": "./assets/characters/huzongxian/huzongxian_nu.png",
+      "ai": "./assets/characters/huzongxian/huzongxian_ai.png",
+      "le": "./assets/characters/huzongxian/huzongxian_le.png"
+    }
+  },
+  "player": {
+    "name": "你",
+    "anchor": "left",
+    "emotions": {
+      "base": "./assets/characters/player/player_base.png",
+      "xi": "./assets/characters/player/player_xi.png",
+      "nu": "./assets/characters/player/player_nu.png",
+      "ai": "./assets/characters/player/player_ai.png",
+      "le": "./assets/characters/player/player_le.png"
+    }
+  }
+}

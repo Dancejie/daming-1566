@@ -3021,7 +3021,7 @@ async function checkDeepSeekHealth() {
     return;
   }
   try {
-    const response = await fetch("/api/health");
+    const response = await fetch("/api/classic/health");
     const data = await response.json();
     if (data.deepseekConfigured) {
       modelBadge.textContent = `DeepSeek 已连接`;
