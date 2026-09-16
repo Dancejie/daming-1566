@@ -7,3 +7,7 @@ film/private/
 film/qa/*.png
 film/qa/*.json
 .work-*/
+
+original/private/
+original/qa/*.json
+original/qa/*.png

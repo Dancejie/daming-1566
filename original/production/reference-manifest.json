@@ -1,0 +1,30 @@
+{
+  "references": [
+    {
+      "file": "assets/anchors/hairui-original.png",
+      "sha256": "7a0cb63dd7c484c8933fa935e13739f48bebb2d60f6e4716e19d1b2a51be6884",
+      "role": "existing-character-identity"
+    },
+    {
+      "file": "assets/anchors/xiyuan-fiscal-room-v2.png",
+      "sha256": "7e22bffbcf2b083bd4a9b68dc4cbb298a3dc83d57f429ab272b48776cb51b32f",
+      "role": "location"
+    },
+    {
+      "file": "assets/anchors/xujie-original.png",
+      "sha256": "822fab651fe6f472ef2fc18dc361f459b61245732a7cb1144f3405cd69d87c74",
+      "role": "existing-character-identity"
+    },
+    {
+      "file": "assets/anchors/yansong-original.png",
+      "sha256": "eb7cfe127d0cdd9b6925689d4499e0b8107d2261f83e5695a0c4cd9a00d328cf",
+      "role": "existing-character-identity"
+    },
+    {
+      "file": "assets/anchors/zhangjuzheng-original.png",
+      "sha256": "d99fb127c6637db3722c8f5e4885d4c74a2b0d5915237ec732b0397662a4a80d",
+      "role": "existing-character-identity"
+    }
+  ],
+  "locationReview": "frame inspected; left lantern, right snow window, north curtain, desk continuity anchor"
+}
