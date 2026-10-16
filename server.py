@@ -19,7 +19,10 @@ original_spec = importlib.util.spec_from_file_location("ming_original_server", R
 original = importlib.util.module_from_spec(original_spec)
 original_spec.loader.exec_module(original)
 original.ROOT = ROOT / "original"
-original.DB = original.ROOT / "private" / "runs.sqlite3"
+data_dir = os.environ.get("DAMING_DATA_DIR")
+if data_dir:
+    film.DB = Path(data_dir) / "storm" / "runs.sqlite3"
+original.DB = (Path(data_dir) / "original" if data_dir else original.ROOT / "private") / "runs.sqlite3"
 
 
 class PublishedHandler(film.Handler, legacy_server.DemoHandler):
@@ -45,9 +48,24 @@ class PublishedHandler(film.Handler, legacy_server.DemoHandler):
         self.end_headers()
 
     def end_headers(self):
+        allowed_origin = os.environ.get("DAMING_ALLOWED_ORIGIN", "")
+        if allowed_origin and self.headers.get("Origin") == allowed_origin:
+            self.send_header("Access-Control-Allow-Origin", allowed_origin)
+            self.send_header("Vary", "Origin")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "same-origin")
         BaseHTTPRequestHandler.end_headers(self)
+
+    def do_OPTIONS(self):
+        allowed = os.environ.get("DAMING_ALLOWED_ORIGIN", "")
+        if not allowed or self.headers.get("Origin") != allowed:
+            self.send_response(403)
+        else:
+            self.send_response(204)
+        self.send_header("Content-Length", "0")
+        self.end_headers()
 
     def do_HEAD(self):
         # Never inherit SimpleHTTPRequestHandler's unrestricted root dispatch.
@@ -69,7 +87,7 @@ class PublishedHandler(film.Handler, legacy_server.DemoHandler):
             return self.json({
                 "status": "ok", "worldId": story["id"], "agentMode": "authored-rules",
                 "contentVersion": story["contentVersion"],
-                "release": os.environ.get("RENDER_GIT_COMMIT", "local"),
+                "release": os.environ.get("DAMING_RELEASE", os.environ.get("RENDER_GIT_COMMIT", "local")),
                 "readyVideoCount": len(active.Handler.media(self)["assets"]),
                 "saveRecovery": "browser-action-journal", "classicUrl": "/classic/",
                 "originalUrl": "/original/", "previousEditionUrl": "/storm/",
@@ -92,6 +110,15 @@ class PublishedHandler(film.Handler, legacy_server.DemoHandler):
         if path == "/api/classic/health":
             self.path = "/api/health"
             return legacy_server.DemoHandler.do_GET(self)
+        if path == "/api/classic-voice" and os.environ.get("DAMING_STATIC_BASE"):
+            import urllib.parse
+            clip_id = (urllib.parse.parse_qs(parsed.query).get("id") or [""])[0]
+            item = legacy_server.load_classic_voice_manifest().get(clip_id)
+            source = str(item.get("src", "")) if item else ""
+            source = source.removeprefix("./")
+            if not source.startswith("assets/classic_voice/") or ".." in Path(source).parts:
+                return self.json({"error": "classic voice clip not found"}, 404)
+            return self.redirect(os.environ["DAMING_STATIC_BASE"].rstrip("/") + "/" + quote(source, safe="/"))
         if path in ("/api/tts/health", "/api/classic-voice"):
             return legacy_server.DemoHandler.do_GET(self)
         return self.edition.Handler.do_GET(self)

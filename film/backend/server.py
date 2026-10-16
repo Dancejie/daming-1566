@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import mimetypes
+import os
 import re
 import sqlite3
 import sys
@@ -25,7 +26,7 @@ def connect():
 
 
 def initialize():
-    DB.parent.mkdir(exist_ok=True)
+    DB.parent.mkdir(parents=True, exist_ok=True)
     with connect() as con:
         con.execute('CREATE TABLE IF NOT EXISTS runs (id TEXT PRIMARY KEY, data TEXT NOT NULL)')
         con.execute('CREATE TABLE IF NOT EXISTS requests (run_id TEXT, request_id TEXT, payload_hash TEXT, result TEXT, PRIMARY KEY(run_id,request_id))')
@@ -51,7 +52,10 @@ class Handler(BaseHTTPRequestHandler):
     def media(self):
         manifest=read(ROOT/'media/runtime-manifest.json')
         manifest['assets']={k:v for k,v in manifest.get('assets',{}).items()
-                            if v.get('status')=='ready' and (ROOT/str(v.get('file','')).lstrip('/')).is_file()}
+                            if v.get('status')=='ready' and (
+                                (ROOT/str(v.get('file','')).lstrip('/')).is_file() or
+                                os.environ.get('DAMING_EXTERNAL_MEDIA') == 'verified-oss-release'
+                            )}
         return manifest
 
     def do_GET(self):
